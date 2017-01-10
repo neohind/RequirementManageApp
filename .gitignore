@@ -1,0 +1,3 @@
+*.suo
+RequireManager/bin/*
+RequireManager/obj/*
