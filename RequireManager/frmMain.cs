@@ -14,11 +14,6 @@ namespace RequireManager
 {
     public partial class frmMain : Form
     {
-        
-        
-        
-        
-
         public frmMain()
         {
             InitializeComponent();
@@ -34,29 +29,13 @@ namespace RequireManager
         {
 
             List<ModelReqmnt> aryRequirements = DataManager.Current.SetCategory(category);
-
-
-
-
             ctrlGridRequirementItems1.Reload();
-
         }
-
-        
-
 
         protected override void OnClosing(CancelEventArgs e)
-
         {
             base.OnClosing(e);
-
-            
         }
-
-       
-       
-
-      
     }
 }
 

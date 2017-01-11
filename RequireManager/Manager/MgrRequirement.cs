@@ -26,18 +26,34 @@ namespace RequireManager.Manager
         }
 
 
-        public void Load()
+        public void Load(List<ModelCategory> aryAllCategories)
         {
             ModelProject selectedProject = m_parent.SelectedProject;
             if (selectedProject != null)
             {
                 m_aryAllRequirements = DacFactory.Current.Requiremnt.GetAllRequirements(selectedProject);                
+                foreach(ModelCategory category in aryAllCategories)
+                {
+                    List<ModelReqmnt> aryReq = m_aryAllRequirements.FindAll(m => m.CategoryId == category.Id);
+                    foreach (ModelReqmnt req in aryReq)
+                        req.CategoryPath = category.Path;
+                }
             }
         }
 
         public List<ModelReqmnt> SetCategory(ModelCategory category)
         {
-            SelectedRequirements = m_aryAllRequirements.FindAll(m => m.CategoryId == category.Id && category.ParentId == -1);
+            if (category.ParentId == -1)
+            {
+                SelectedRequirements.Clear();
+                SelectedRequirements.AddRange(m_aryAllRequirements);
+            }
+            else
+            {
+                SelectedRequirements = m_aryAllRequirements.FindAll(m => m.CategoryId == category.Id);
+                foreach (ModelReqmnt req in SelectedRequirements)
+                    req.CategoryPath = category.Path;
+            }
             return SelectedRequirements;
         }
     }

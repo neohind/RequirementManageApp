@@ -58,7 +58,7 @@ namespace RequireManager.Manager
             if(SelectedProject != null)
             {
                 Category.Load();
-                Requirement.Load();
+                Requirement.Load(Category.AllCategories);
                 SetCategory(Category.Root);
             }
         }

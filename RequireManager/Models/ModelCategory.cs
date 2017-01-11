@@ -7,6 +7,9 @@ namespace RequireManager.Models
 {
     public class ModelCategory : ModelBase
     {
+        private string m_sPath = string.Empty;
+
+
         [DbPropName("ID")]
         public int Id
         {
@@ -69,7 +72,9 @@ namespace RequireManager.Models
         {
             get
             {
-                return GetPath(this);
+                if (string.IsNullOrEmpty(m_sPath))
+                    m_sPath = GetPath(this);
+                return m_sPath;
             }
         }
 
