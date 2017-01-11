@@ -19,8 +19,7 @@ namespace RequireManager
             frmLogin loginForm = new frmLogin();
             if (loginForm.ShowDialog() == DialogResult.OK)
             {
-                frmMain mainForm = new RequireManager.frmMain();
-                mainForm.SetSelectedProject(loginForm.SelectedProject);
+                frmMain mainForm = new RequireManager.frmMain();                
                 Application.Run(mainForm);
             }
         }

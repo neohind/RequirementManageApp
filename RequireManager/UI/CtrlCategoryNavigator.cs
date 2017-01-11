@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using RequireManager.Models;
 using RequireManager.Dac;
+using RequireManager.Manager;
 
 namespace RequireManager.UI
 {
@@ -21,70 +22,42 @@ namespace RequireManager.UI
 
         TreeNode m_selectedNodeCategory = null;
         TreeNode m_dragNode = null;
+    
 
-        ModelProject m_selectedProject = null;
-        List<ModelCategory> m_aryAllCategories = null;
-
-        public ModelProject CurrentProject
+        public CtrlCategoryNavigator()
         {
-            get { return m_selectedProject; }
-            set { m_selectedProject = value; }
-        }
-
-        public List<ModelCategory> AllCategories
-        {
-            get { return m_aryAllCategories; }
-            set
+            InitializeComponent();
+            if(DataManager.Current != null)
             {
-                m_aryAllCategories = value;
-                if (m_aryAllCategories != null)
-                {
+                
                     TreeNode nodeRoot = null;
-                    ModelCategory rootModel = null;
-                    if (m_aryAllCategories.Count > 0)
+                    ModelCategory modelRoot = DataManager.Current.Category.Root;
+                    if (modelRoot != null)
                     {
-                        rootModel = m_aryAllCategories.Find(m => m.ParentId == -1);
-                        nodeRoot = new TreeNodeCategory(rootModel);
-                        nodeRoot.Tag = rootModel;
-
+                        nodeRoot = new TreeNodeCategory(modelRoot);
+                        nodeRoot.Tag = modelRoot;
                         treeCategory.Nodes.Add(nodeRoot);
 
-                        PopulateCategory(nodeRoot, string.Empty);
+                        PopulateCategory(nodeRoot);
 
                         nodeRoot.ExpandAll();
                         treeCategory.SelectedNode = nodeRoot;
                     }
                 }
-            }
-        }
-
-        public CtrlCategoryNavigator()
-        {
-            InitializeComponent();
         }
 
 
-        private void PopulateCategory(TreeNode current, string sCurPath)
+        private void PopulateCategory(TreeNode current)
         {
             ModelCategory curModel = (ModelCategory)current.Tag;
 
-
-            List<ModelCategory> childModels = m_aryAllCategories.FindAll(m => m.ParentId == curModel.Id);
-            foreach (ModelCategory childModel in childModels)
+            foreach (ModelCategory childModel in curModel.Childs)
             {
                 TreeNode childNode = new TreeNodeCategory(childModel);
                 childNode.Tag = childModel;
                 SetNodeTooltip(childNode, childModel.DisplayName, childModel.Description);
                 current.Nodes.Add(childNode);
-                PopulateCategory(childNode, sCurPath);
-
-                string sPath = GetPath(childNode);
-                
-                //List<ModelReqmnt> aryCurRequirement = m_aryAllRequirement.FindAll(m => m.CategoryId == childModel.Id);
-                //foreach (ModelReqmnt req in aryCurRequirement)
-                //    req.CategoryPath = sPath;
-
-
+                PopulateCategory(childNode);
             }
         }
 
@@ -109,12 +82,12 @@ namespace RequireManager.UI
                                 frm.Path = m_selectedNodeCategory.FullPath;
                                 frm.CurAction = frmCategory.ActionType.Add;
                                 frm.ParentModel = selectedCategory;
-                                frm.AllCategories = m_aryAllCategories;
+                                //frm.AllCategories = m_aryAllCategories;
                                 if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     if (frm.CurModel != null)
                                     {
-                                        m_aryAllCategories.Add(frm.CurModel);
+                                       // m_aryAllCategories.Add(frm.CurModel);
                                         DacFactory.Current.Category.AddCategory(frm.CurModel);
                                         TreeNode node = new TreeNodeCategory(frm.CurModel);
                                         SetNodeTooltip(node, frm.CurModel.DisplayName, frm.CurModel.Description);
@@ -130,14 +103,14 @@ namespace RequireManager.UI
                                 if ("ROOT".Equals(selectedCategory.Code) || "ETC".Equals(selectedCategory.Code))
                                     return;
 
-                                ModelCategory categoryChild = m_aryAllCategories.Find(m => m.ParentId.Equals(selectedCategory.Id));
+                                ModelCategory categoryChild = null; // m_aryAllCategories.Find(m => m.ParentId.Equals(selectedCategory.Id));
                                 if (categoryChild != null)
                                     return;
 
                                 string sMessage = string.Format("Really delete {0}[{1}]?", selectedCategory.DisplayName, selectedCategory.Code);
                                 if (MessageBox.Show(sMessage, "CONFIRM", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                                 {
-                                    ModelCategory categoryETC = m_aryAllCategories.Find(m => "ETC".Equals(m.Code));
+                                    ModelCategory categoryETC = new ModelCategory(); // m_aryAllCategories.Find(m => "ETC".Equals(m.Code));
                                     TreeNode nodeEtc = FindNode(null, categoryETC.Id);
                                     string sPath = GetPath(nodeEtc);
                                     //List<ModelReqmnt> aryMovingRequirements = m_aryAllRequirement.FindAll(m => m.CategoryId == selectedCategory.Id);
@@ -151,7 +124,7 @@ namespace RequireManager.UI
                                     TreeNode nodeParent = selectedNode.Parent;
                                     SelectedNodeChange(nodeParent);
                                     nodeParent.Nodes.Remove(selectedNode);
-                                    m_aryAllCategories.Remove(selectedCategory);
+                                    //m_aryAllCategories.Remove(selectedCategory);
                                     DacFactory.Current.Category.DelCategot(selectedCategory);
 
                                     SelectedNodeChange(nodeEtc);
@@ -168,7 +141,7 @@ namespace RequireManager.UI
                                 frm.Path = m_selectedNodeCategory.FullPath;
                                 frm.CurAction = frmCategory.ActionType.Edit;
                                 frm.CurModel = (ModelCategory)m_selectedNodeCategory.Tag;
-                                frm.AllCategories = m_aryAllCategories;
+                                //frm.AllCategories = m_aryAllCategories;
                                 if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     DacFactory.Current.Category.UpdateCategory(frm.CurModel);
@@ -186,13 +159,6 @@ namespace RequireManager.UI
 
         private void SetNodeTooltip(TreeNode node, string sDisplayName, string sDescription)
         {
-            //StringBuilder sbMessage = new StringBuilder();
-            //sbMessage.Append(sDisplayName);
-            //if (string.IsNullOrEmpty(sDescription) == false)
-            //{
-            //    sbMessage.AppendLine();
-            //    sbMessage.AppendFormat("> {0}", sDescription);
-            //}
             node.ToolTipText = sDisplayName;
         }
 
@@ -210,9 +176,9 @@ namespace RequireManager.UI
                 ModelCategory targetModel = (ModelCategory)selectedNode.Tag;
                 ModelCategory sourceModel = (ModelCategory)sourceNode.Tag;
 
-                if ("ETC".Equals(targetModel.Code) || targetModel.Id == sourceModel.ParentId
-                    || m_aryAllCategories.Find(m => m.ParentId == targetModel.Id && m.Code.Equals(sourceModel.Code)) != null)
-                    return;
+                //if ("ETC".Equals(targetModel.Code) || targetModel.Id == sourceModel.ParentId
+                //    || m_aryAllCategories.Find(m => m.ParentId == targetModel.Id && m.Code.Equals(sourceModel.Code)) != null)
+                //    return;
 
                 string sMessage = string.Format("Really move '{0}[{1}]' to '{2}[{3}]'?"
                     , sourceModel.DisplayName, sourceModel.Code

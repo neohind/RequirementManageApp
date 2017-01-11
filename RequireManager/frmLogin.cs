@@ -1,4 +1,5 @@
 ﻿using RequireManager.Dac;
+using RequireManager.Manager;
 using RequireManager.Models;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,6 @@ namespace RequireManager
 {
     public partial class frmLogin : Form
     {
-        public ModelProject SelectedProject
-        {
-            get;
-            private set;
-        }
-
-        
-
-
         public frmLogin()
         {
             InitializeComponent();
@@ -38,7 +30,8 @@ namespace RequireManager
             int nSelectedIndex = cmbProjects.SelectedIndex;
             if (nSelectedIndex > -1)
             {
-                SelectedProject = cmbProjects.Items[nSelectedIndex] as ModelProject;
+                ModelProject selectedProject = cmbProjects.Items[nSelectedIndex] as ModelProject;
+                DataManager.Current.SetProject(selectedProject);                
                 Application.UserAppDataRegistry.SetValue("LASTDBNAME", txtConnectionString.Text);
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Close();

@@ -67,8 +67,42 @@ namespace RequireManager.Models
 
         public string Path
         {
+            get
+            {
+                return GetPath(this);
+            }
+        }
+
+        private string GetPath(ModelCategory current)
+        {
+            if(current != null && current.Parent != null)
+            {
+                ModelCategory parent = current.Parent;
+                string sParentCode = GetPath(parent);
+                if (string.IsNullOrEmpty(sParentCode))
+                    return current.Code;
+                else
+                    return string.Format("{0}-{1}", sParentCode, current.Code);                
+            }
+            return string.Empty;
+        }
+
+        public ModelCategory Parent
+        {
             get;
             set;
+        }
+
+        public List<ModelCategory> Childs
+        {
+            get;
+            private set;
+        }
+
+
+        public ModelCategory()
+        {
+            Childs = new List<ModelCategory>();
         }
 
 

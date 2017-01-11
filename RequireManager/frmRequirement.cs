@@ -1,4 +1,5 @@
-﻿using RequireManager.Models;
+﻿using RequireManager.Manager;
+using RequireManager.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -141,13 +142,11 @@ namespace RequireManager
             txtRemark.Enabled = false;
         }
 
-        internal void SetAllCategories(List<ModelCategory> categories, ModelCategory selectedCategory)
+        internal void SetAllCategories()
         {
-            m_aryAllCategories = categories;
-            m_curCategory = selectedCategory;
-            cmbPath.DataSource = m_aryAllCategories;
-            cmbPath.DisplayMember = "Path";
-            cmbPath.SelectedIndex = categories.IndexOf(selectedCategory);
+            m_curCategory = DataManager.Current.Category.SelectedCategory;
+            cmbPath.DataSource = DataManager.Current.Category.AllCategories;
+            cmbPath.DisplayMember = "Path";            
         }
 
         internal void SetClose()

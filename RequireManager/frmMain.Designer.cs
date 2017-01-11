@@ -60,8 +60,6 @@
             // 
             // ctrlCategoryNavigator1
             // 
-            this.ctrlCategoryNavigator1.AllCategories = null;
-            this.ctrlCategoryNavigator1.CurrentProject = null;
             this.ctrlCategoryNavigator1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctrlCategoryNavigator1.Location = new System.Drawing.Point(0, 0);
             this.ctrlCategoryNavigator1.Name = "ctrlCategoryNavigator1";

@@ -64,6 +64,8 @@
     <Compile Include="Dac\DacSetting.cs" />
     <Compile Include="Dac\DbAgent.cs" />
     <Compile Include="Dac\UDatalQuerySet.cs" />
+    <Compile Include="Manager\MgrCategory.cs" />
+    <Compile Include="Manager\DataManager.cs" />
     <Compile Include="frmCategory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +96,7 @@
     <Compile Include="frmMoveToCategory.Designer.cs">
       <DependentUpon>frmMoveToCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Manager\MgrRequirement.cs" />
     <Compile Include="Models\DbPropNameAttribute.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\ModelCategory.cs" />
