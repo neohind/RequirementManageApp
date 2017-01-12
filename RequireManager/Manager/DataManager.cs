@@ -8,7 +8,10 @@ using System.Text;
 namespace RequireManager.Manager
 {
     public class DataManager
-    {   
+    {
+        
+
+
         public static DataManager Current
         {
             get;
@@ -58,7 +61,7 @@ namespace RequireManager.Manager
             if(SelectedProject != null)
             {
                 Category.Load();
-                Requirement.Load(Category.AllCategories);
+                Requirement.Load();
                 SetCategory(Category.Root);
             }
         }
@@ -67,6 +70,20 @@ namespace RequireManager.Manager
         {
             Category.SetCategory(category);
             return Requirement.SetCategory(category);
+        }
+
+        internal void DeleteCategory(ModelCategory selectedCategory)
+        {
+            List<ModelReqmnt> aryReqs = Requirement.FindAll(selectedCategory.Id);
+            foreach (ModelReqmnt req in aryReqs)
+                req.CategoryId = Category.ETC.Id;
+            Category.Remove(selectedCategory);
+        }
+
+        internal void UpdateCategory(ModelCategory modelCategory)
+        {
+            Requirement.UpdatePath(modelCategory);
+            Category.Edit(modelCategory);
         }
     }
 }

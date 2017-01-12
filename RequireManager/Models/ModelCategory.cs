@@ -7,7 +7,12 @@ namespace RequireManager.Models
 {
     public class ModelCategory : ModelBase
     {
+        public delegate void OnRefreshedHandler(ModelCategory category);
+        public event OnRefreshedHandler OnRefreshed;
+
+
         private string m_sPath = string.Empty;
+        private string m_sFullPath = string.Empty;
 
 
         [DbPropName("ID")]
@@ -73,24 +78,35 @@ namespace RequireManager.Models
             get
             {
                 if (string.IsNullOrEmpty(m_sPath))
-                    m_sPath = GetPath(this);
+                    m_sPath = GetPath(this, "-");
                 return m_sPath;
             }
         }
 
-        private string GetPath(ModelCategory current)
+        public string FullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(m_sFullPath))
+                    m_sFullPath = GetPath(this, "\\");
+                return m_sFullPath;
+            }
+        }
+
+        private string GetPath(ModelCategory current, string sSpliter)
         {
             if(current != null && current.Parent != null)
             {
                 ModelCategory parent = current.Parent;
-                string sParentCode = GetPath(parent);
+                string sParentCode = GetPath(parent, sSpliter);
                 if (string.IsNullOrEmpty(sParentCode))
                     return current.Code;
                 else
-                    return string.Format("{0}-{1}", sParentCode, current.Code);                
+                    return string.Format("{0}{1}{2}", sParentCode,sSpliter, current.Code);                
             }
             return string.Empty;
         }
+
 
         public ModelCategory Parent
         {
@@ -110,6 +126,14 @@ namespace RequireManager.Models
             Childs = new List<ModelCategory>();
         }
 
+
+        public void Refresh()
+        {
+            m_sFullPath = string.Empty;
+            m_sPath = string.Empty;
+            if (OnRefreshed != null)
+                OnRefreshed(this);
+        }
 
     }
 }

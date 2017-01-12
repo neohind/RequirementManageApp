@@ -20,11 +20,6 @@ namespace RequireManager
             Edit
         }
 
-        public string Path
-        {
-            get;
-            set;
-        }
 
         public ActionType CurAction
         {
@@ -44,11 +39,6 @@ namespace RequireManager
             set;
         }
 
-        public List<ModelCategory> AllCategories
-        {
-            get;
-            set;
-        }
 
         public frmCategory()
         {
@@ -78,14 +68,14 @@ namespace RequireManager
 
                     break;
             }
-            lblPath.Text = Path.Replace("\\", " > ");
+            lblPath.Text = ParentModel.Path;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(Regex.IsMatch(txtCode.Text, @"^[A-Za-z0-9]{1,14}\b") == false)
+            if(Regex.IsMatch(txtCode.Text, @"^[A-Za-z0-9_]{1,14}\b") == false)
             {
-                MessageBox.Show("Invalid Code - First char is only alphbet / 4~15 char len / Only alphabet and digit", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid Code - First char is  4~15 char len and only alphabet ,digit and '_'", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCode.Focus();
                 return;
             }
@@ -96,7 +86,7 @@ namespace RequireManager
             }
 
 
-            ModelCategory findSameCategory = AllCategories.Find(m => m.ParentId == this.CurModel.ParentId && string.Equals(m.Code, txtCode.Text, StringComparison.InvariantCultureIgnoreCase));
+            ModelCategory findSameCategory = ParentModel.Childs.Find(m => string.Equals(m.Code, txtCode.Text, StringComparison.InvariantCultureIgnoreCase));
 
             if (findSameCategory != null)
             {
@@ -116,6 +106,7 @@ namespace RequireManager
                 return;
             }
 
+            
             this.CurModel.Code = txtCode.Text;
             this.CurModel.DisplayName = txtDisplayName.Text;
             this.CurModel.Description = txtDescription.Text;

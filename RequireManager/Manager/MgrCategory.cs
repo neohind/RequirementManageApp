@@ -9,10 +9,22 @@ namespace RequireManager.Manager
 {
     public class MgrCategory
     {
+        public delegate void OnCategoryAddedHandler(ModelCategory model);
+        public event OnCategoryAddedHandler OnCategoryAdded;
+
+        public delegate void OnCategoryDeletedHandler(ModelCategory model);
+        public event OnCategoryDeletedHandler OnCategoryDeleted;
+
         DataManager m_parent = null;
         
 
         public ModelCategory Root
+        {
+            get;
+            private set;
+        }
+
+        public ModelCategory ETC
         {
             get;
             private set;
@@ -50,6 +62,7 @@ namespace RequireManager.Manager
         private void MakeHeirachy()
         {
             Root = Find("ROOT");
+            ETC = Find("ETC");
             MakeHeirachy(Root);
         }
 
@@ -100,6 +113,30 @@ namespace RequireManager.Manager
         internal void SetCategory(ModelCategory category)
         {
             SelectedCategory = category;
+        }
+
+        internal void AddCategory(ModelCategory modelParentCategory, ModelCategory modelCategory)
+        {
+            modelParentCategory.Childs.Add(modelCategory);
+            modelCategory.Parent = modelParentCategory;
+            DacFactory.Current.Category.AddCategory(modelCategory);
+
+            if (OnCategoryAdded != null)
+                OnCategoryAdded(modelCategory);
+        }
+
+        internal void Edit(ModelCategory modelCategory)
+        {
+            DacFactory.Current.Category.UpdateCategory(modelCategory);
+            modelCategory.Refresh();
+        }
+
+        internal void Remove(ModelCategory selectedCategory)
+        {
+            DacFactory.Current.Category.DelCategot(selectedCategory);
+            selectedCategory.Parent.Childs.Remove(selectedCategory);
+            if (OnCategoryDeleted != null)
+                OnCategoryDeleted(selectedCategory);
         }
     }
 }

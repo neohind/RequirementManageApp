@@ -1,9 +1,11 @@
-﻿using RequireManager.Models;
+﻿using RequireManager.Manager;
+using RequireManager.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace RequireManager
 {
@@ -21,11 +23,24 @@ namespace RequireManager
         public TreeNodeCategory(ModelCategory category)
             : base()
         {
-            this.Text = category.Code;
-            nodeEntry.Key = category.Id;
-            m_curValue =category;
-            nodeEntry.Value = category;
+
+            m_curValue = category;
+            nodeEntry.Key = category.Id;            
+            nodeEntry.Value = category;             
             this.Tag = category;
+            category_OnRefreshed(category);
+            category.OnRefreshed += category_OnRefreshed;
+        }
+
+        void category_OnRefreshed(ModelCategory category)
+        {
+            if (TreeView != null && TreeView.InvokeRequired)
+                TreeView.Invoke(new ModelCategory.OnRefreshedHandler(category_OnRefreshed), category);
+            else
+            {
+                this.Text = category.Code;
+                this.ToolTipText = category.DisplayName;
+            }
         }
 
         public string NodeKey
@@ -102,5 +117,36 @@ namespace RequireManager
         {
             enumerator.Reset();
         }
+
+        public TreeNodeCategory FindNode(string sPath)
+        {
+            Queue<string> path = new Queue<string>();
+            string[] aryPathTokens = sPath.Split(this.TreeView.PathSeparator.ToCharArray());
+            foreach (string sToken in aryPathTokens)
+                path.Enqueue(sToken);
+            return FindNode(this, path);    
+        }
+
+
+        static TreeNodeCategory FindNode(TreeNodeCategory curNode, Queue<string> path)
+        {
+            TreeNodeCategory foundNode = curNode;            
+            if (path.Count > 0)
+            {
+                string sPath = path.Dequeue();
+                foreach (TreeNode childNode in foundNode.Nodes)
+                {
+                    if (string.Equals(childNode.Text, sPath))
+                    {
+                        foundNode = (TreeNodeCategory)childNode;
+                        foundNode = FindNode(foundNode, path);
+                        break;
+                    }
+                }                
+            }
+            return foundNode;
+        }
+
+
     }
 }

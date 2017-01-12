@@ -22,30 +22,33 @@ namespace RequireManager.UI
 
         TreeNode m_selectedNodeCategory = null;
         TreeNode m_dragNode = null;
-    
+        TreeNodeCategory m_rootNode = null;
+
 
         public CtrlCategoryNavigator()
         {
             InitializeComponent();
-            if(DataManager.Current != null)
+            if (DataManager.Current != null)
             {
-                
-                    TreeNode nodeRoot = null;
-                    ModelCategory modelRoot = DataManager.Current.Category.Root;
-                    if (modelRoot != null)
-                    {
-                        nodeRoot = new TreeNodeCategory(modelRoot);
-                        nodeRoot.Tag = modelRoot;
-                        treeCategory.Nodes.Add(nodeRoot);
+                m_rootNode = null;
+                ModelCategory modelRoot = DataManager.Current.Category.Root;
+                if (modelRoot != null)
+                {
+                    m_rootNode = new TreeNodeCategory(modelRoot);
+                    m_rootNode.Tag = modelRoot;
+                    treeCategory.Nodes.Add(m_rootNode);
 
-                        PopulateCategory(nodeRoot);
+                    PopulateCategory(m_rootNode);
 
-                        nodeRoot.ExpandAll();
-                        treeCategory.SelectedNode = nodeRoot;
-                    }
+                    m_rootNode.ExpandAll();
+                    treeCategory.SelectedNode = m_rootNode;
                 }
+                DataManager.Current.Category.OnCategoryAdded += Category_OnCategoryAdded;
+                DataManager.Current.Category.OnCategoryDeleted += Category_OnCategoryDeleted;
+            }
         }
 
+       
 
         private void PopulateCategory(TreeNode current)
         {
@@ -54,12 +57,48 @@ namespace RequireManager.UI
             foreach (ModelCategory childModel in curModel.Childs)
             {
                 TreeNode childNode = new TreeNodeCategory(childModel);
-                childNode.Tag = childModel;
-                SetNodeTooltip(childNode, childModel.DisplayName, childModel.Description);
                 current.Nodes.Add(childNode);
                 PopulateCategory(childNode);
             }
         }
+
+
+        void Category_OnCategoryAdded(ModelCategory model)
+        {
+            if (this.InvokeRequired)
+                this.Invoke(new MgrCategory.OnCategoryAddedHandler(Category_OnCategoryAdded), model);
+            else if (model != null && model.Parent != null)
+            {
+                string sPath = model.Parent.FullPath;
+                TreeNodeCategory parentNode = m_rootNode.FindNode(sPath);
+                if (parentNode != null)
+                {
+                    TreeNode node = new TreeNodeCategory(model);
+                    parentNode.Nodes.Add(node);
+                    SelectedNodeChange(node);
+                }
+            }
+        }
+
+        void Category_OnCategoryDeleted(ModelCategory model)
+        {
+            if (this.InvokeRequired)
+                this.Invoke(new MgrCategory.OnCategoryDeletedHandler(Category_OnCategoryDeleted), model);
+            else if (model != null)
+            {
+                string sPath = model.FullPath;
+                TreeNodeCategory node = m_rootNode.FindNode(sPath);
+                TreeNode parentNode = node.Parent;
+
+                if (parentNode != null)
+                {
+                    parentNode.Nodes.Remove(node);
+                    SelectedNodeChange(parentNode);
+                }
+            }
+        }
+
+
 
 
         private void menuCategory_Click(object sender, EventArgs e)
@@ -78,23 +117,13 @@ namespace RequireManager.UI
                                 if ("ETC".Equals(selectedCategory.Code))
                                     return;
 
-                                frmCategory frm = new frmCategory();
-                                frm.Path = m_selectedNodeCategory.FullPath;
+                                frmCategory frm = new frmCategory();                                
                                 frm.CurAction = frmCategory.ActionType.Add;
-                                frm.ParentModel = selectedCategory;
-                                //frm.AllCategories = m_aryAllCategories;
+                                frm.ParentModel = selectedCategory;                                
                                 if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     if (frm.CurModel != null)
-                                    {
-                                       // m_aryAllCategories.Add(frm.CurModel);
-                                        DacFactory.Current.Category.AddCategory(frm.CurModel);
-                                        TreeNode node = new TreeNodeCategory(frm.CurModel);
-                                        SetNodeTooltip(node, frm.CurModel.DisplayName, frm.CurModel.Description);
-                                        m_selectedNodeCategory.Nodes.Add(node);
-                                        SelectedNodeChange(node);
-                                        node.ExpandAll();
-                                    }
+                                        DataManager.Current.Category.AddCategory(frm.ParentModel, frm.CurModel);                                                                                
                                 }
                             }
                             break;
@@ -103,32 +132,17 @@ namespace RequireManager.UI
                                 if ("ROOT".Equals(selectedCategory.Code) || "ETC".Equals(selectedCategory.Code))
                                     return;
 
-                                ModelCategory categoryChild = null; // m_aryAllCategories.Find(m => m.ParentId.Equals(selectedCategory.Id));
+                                ModelCategory categoryChild = DataManager.Current.Category.FindByParentID(selectedCategory.Id);
                                 if (categoryChild != null)
+                                {
+                                    MessageBox.Show("Can't delete because this has child categories", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
+                                }
 
                                 string sMessage = string.Format("Really delete {0}[{1}]?", selectedCategory.DisplayName, selectedCategory.Code);
                                 if (MessageBox.Show(sMessage, "CONFIRM", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                                 {
-                                    ModelCategory categoryETC = new ModelCategory(); // m_aryAllCategories.Find(m => "ETC".Equals(m.Code));
-                                    TreeNode nodeEtc = FindNode(null, categoryETC.Id);
-                                    string sPath = GetPath(nodeEtc);
-                                    //List<ModelReqmnt> aryMovingRequirements = m_aryAllRequirement.FindAll(m => m.CategoryId == selectedCategory.Id);
-                                    //foreach (ModelReqmnt req in aryMovingRequirements)
-                                    //{
-                                    //    req.CategoryId = categoryETC.Id;
-                                    //    req.CategoryPath = sPath;
-                                    //    DacFactory.Current.Requiremnt.MoveToCategory(req.Id, categoryETC.Id);
-                                    //}
-                                    TreeNode selectedNode = m_selectedNodeCategory;
-                                    TreeNode nodeParent = selectedNode.Parent;
-                                    SelectedNodeChange(nodeParent);
-                                    nodeParent.Nodes.Remove(selectedNode);
-                                    //m_aryAllCategories.Remove(selectedCategory);
-                                    DacFactory.Current.Category.DelCategot(selectedCategory);
-
-                                    SelectedNodeChange(nodeEtc);
-
+                                    DataManager.Current.DeleteCategory(selectedCategory);
                                 }
                             }
                             break;
@@ -138,15 +152,14 @@ namespace RequireManager.UI
                                     return;
 
                                 frmCategory frm = new frmCategory();
-                                frm.Path = m_selectedNodeCategory.FullPath;
+                                
                                 frm.CurAction = frmCategory.ActionType.Edit;
-                                frm.CurModel = (ModelCategory)m_selectedNodeCategory.Tag;
-                                //frm.AllCategories = m_aryAllCategories;
+                                frm.ParentModel = selectedCategory.Parent;
+                                frm.CurModel = selectedCategory;                                
                                 if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
-                                    DacFactory.Current.Category.UpdateCategory(frm.CurModel);
-                                    m_selectedNodeCategory.Text = frm.CurModel.Code;
-                                    SetNodeTooltip(m_selectedNodeCategory, frm.CurModel.DisplayName, frm.CurModel.Description);
+                                    DataManager.Current.UpdateCategory(frm.CurModel);                                     
+                                    
                                     SelectedNodeChange(m_selectedNodeCategory);
 
                                 }
@@ -157,10 +170,6 @@ namespace RequireManager.UI
             }
         }
 
-        private void SetNodeTooltip(TreeNode node, string sDisplayName, string sDescription)
-        {
-            node.ToolTipText = sDisplayName;
-        }
 
         private void treeCategory_DragDrop(object sender, DragEventArgs e)
         {
