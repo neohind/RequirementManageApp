@@ -35,9 +35,8 @@ namespace RequireManager.Dac
         {
             List<ModelCategory> aryResult = new List<ModelCategory>();
 
-            string sQuery = "SELECT ID, PID, PRJID, CODE, DISPNM, DESCRPT, CREATED, UPDATED FROM TB_CATEGORY WHERE PRJID = @PRJID";
             DataTable tbResult = null;
-            UDataQuerySet set = new UDataQuerySet(sQuery);
+            UDataQuerySet set = new UDataQuerySet("SP_CAT_SELECT", CommandType.StoredProcedure);
             set.AddParam("@PRJID", selectedProject.ID);
 
             try

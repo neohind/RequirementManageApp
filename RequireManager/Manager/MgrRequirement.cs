@@ -38,6 +38,13 @@ namespace RequireManager.Manager
 
         public List<ModelReqmnt> SetCategory(ModelCategory category)
         {
+            UpdateSelectedRequirements(category);
+
+            return SelectedRequirements;
+        }
+
+        private void UpdateSelectedRequirements(ModelCategory category)
+        {
             if (category.ParentId == -1)
             {
                 SelectedRequirements.Clear();
@@ -49,7 +56,6 @@ namespace RequireManager.Manager
                 foreach (ModelReqmnt req in SelectedRequirements)
                     req.CategoryPath = category.Path;
             }
-            return SelectedRequirements;
         }
 
         internal List<ModelReqmnt> FindAll(int nCategoryID)
@@ -69,6 +75,81 @@ namespace RequireManager.Manager
 
             foreach (ModelCategory childCategory in modelCategory.Childs)
                 UpdatePath(childCategory);
+        }
+
+        internal ModelReqmnt NewRequirement()
+        {
+            int nMaxIndex = 0;
+            foreach (ModelReqmnt req in SelectedRequirements)
+                if (req.Index > nMaxIndex)
+                    nMaxIndex = req.Index;
+            ModelReqmnt newReq = new ModelReqmnt();
+            newReq.Id = -1;
+            newReq.Index = nMaxIndex + 1;
+            newReq.ProjectId = m_parent.SelectedProject.ID;
+            newReq.CategoryId = m_parent.Category.SelectedCategory.Id;
+            newReq.CategoryPath = m_parent.Category.SelectedCategory.Path;
+
+            return newReq;
+        }
+
+        internal void Save(ModelReqmnt SelectedRequirement)
+        {
+            if (SelectedRequirement.Id == -1)
+            {
+                DacFactory.Current.Requiremnt.AddRequirement(SelectedRequirement);
+                m_aryAllRequirements.Add(SelectedRequirement);
+                SelectedRequirements.Add(SelectedRequirement);
+            }
+            else
+            {
+                DacFactory.Current.Requiremnt.UpdateRequirement(SelectedRequirement);
+            }            
+        }
+
+        internal void AddRemark(ModelReqmnt curReq, string sContents)
+        {
+            ModelRemark remark = new ModelRemark();
+            remark.ProjectId = curReq.ProjectId;            
+            remark.RequirementId = curReq.Id;
+            remark.Contents = sContents;
+            curReq.AllRemark.Add(remark);
+
+            DacFactory.Current.Requiremnt.AddRemark(remark);
+        }
+
+        internal void UpdateRemark(ModelRemark selectedRemark)
+        {
+            DacFactory.Current.Requiremnt.UpdateRemark(selectedRemark);
+        }
+
+        internal void DeleteRemark(ModelReqmnt curReq, ModelRemark selectedRemark)
+        {
+            DacFactory.Current.Requiremnt.DeleteRemark(selectedRemark);
+            curReq.AllRemark.Remove(selectedRemark);
+         
+        }
+
+        internal void Delete(ModelReqmnt selectedRequirement)
+        {
+            DacFactory.Current.Requiremnt.DelRequirement(selectedRequirement);
+            m_aryAllRequirements.Remove(selectedRequirement);
+            SelectedRequirements.Remove(selectedRequirement);
+        }
+
+        internal void ReorderIndex()
+        {
+            if(SelectedRequirements.Count> 0)
+            {
+                SelectedRequirements.Sort((m, n) => m.Index - n.Index);
+                int nIndex = 1;
+                foreach(ModelReqmnt req in SelectedRequirements)
+                {
+                    req.Index = nIndex;
+                    DacFactory.Current.Requiremnt.UpdateRequirement(req);
+                    nIndex++;
+                }
+            }
         }
     }
 }

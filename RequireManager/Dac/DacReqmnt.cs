@@ -16,57 +16,9 @@ namespace RequireManager.Dac
         {   
         }
 
-        public void AddRequirement(ModelReqmnt newRequirement)
-        {
-                  
-            int nLastedId = -1;
-            string sQuery = @"INSERT INTO TB_REQS (PRJID,CATID,IDX,SRCID,REQNMT,ENABLED,CREATED) VALUES (@PRJID, @CATID, @IDX, @SRCID,@REQNMT,'Y', GETDATE())
-                              SELECT IDENT_CURRENT('TB_REQS')";
+        
 
-            UDataQuerySet set = new UDataQuerySet(sQuery);
-
-            set.AddParam("@PRJID", newRequirement.ProjectId);
-            set.AddParam("@CATID", newRequirement.CategoryId);
-            set.AddParam("@IDX", newRequirement.Index);
-            set.AddParam("@SRCID", newRequirement.SourceId);
-            set.AddParam("@REQNMT", newRequirement.Requirement);
-
-            try
-            {
-                nLastedId = m_agent.GetValue<int>(set);
-                newRequirement.Id = nLastedId;
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-                newRequirement.Id = -1;
-            }       
-        }
-
-
-        public void MoveToCategory(int nReqId, int nCategoryId)
-        {
-
-
-
-            int nLastedId = -1;
-            string sQuery = @"UPDATE TB_REQS SET CATID=@CATID WHERE ID = @ID";
-
-            UDataQuerySet set = new UDataQuerySet(sQuery);
-
-            set.AddParam("@ID", nReqId);
-            set.AddParam("@CATID", nCategoryId);
-
-            try
-            {
-                nLastedId = m_agent.ExecuteQuery(set);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-
-            }
-        }
+        
 
 
         internal List<ModelReqmnt> GetAllRequirements(ModelProject selectedProject)
@@ -116,46 +68,122 @@ namespace RequireManager.Dac
             return aryResult;
         }
 
-        internal void UpdateIndex(ModelReqmnt req)
+        
+
+        public void AddRequirement(ModelReqmnt newRequirement)
         {
             int nLastedId = -1;
-            string sQuery = @"UPDATE TB_REQS SET IDX=@IDX WHERE ID = @ID";
 
-            UDataQuerySet set = new UDataQuerySet(sQuery);
+            UDataQuerySet set = new UDataQuerySet("SP_REQ_INSERT", CommandType.StoredProcedure);
 
-            set.AddParam("@ID", req.Id);
-            set.AddParam("@IDX", req.Index);
+            set.AddParam("@PRJID", newRequirement.ProjectId);
+            set.AddParam("@CATID", newRequirement.CategoryId);
+            set.AddParam("@IDX", newRequirement.Index);
+            set.AddParam("@SRCID", newRequirement.SourceId);
+            set.AddParam("@REQNMT", newRequirement.Requirement);
 
             try
             {
-                nLastedId = m_agent.ExecuteQuery(set);
+                nLastedId = m_agent.GetValue<int>(set);
+                newRequirement.Id = nLastedId;
+                foreach (ModelRemark remark in newRequirement.AllRemark)
+                {
+                    remark.RequirementId = newRequirement.Id;
+                    AddRemark(remark);
+                }
             }
             catch (Exception ex)
             {
                 log.Error(ex);
-
+                newRequirement.Id = -1;
             }
         }
 
-        internal void AddRemark(ModelReqmnt m_selectedRequirement, string sRemark)
+
+        public void UpdateRequirement(ModelReqmnt requirement)
         {
-            UDataQuerySet set = new UDataQuerySet("SP_REQ_REMARK_INSERT", CommandType.StoredProcedure);
-            set.AddParam("@PRJID", m_selectedRequirement.ProjectId);
-            set.AddParam("@REQID", m_selectedRequirement.Id);
-            set.AddParam("@REMARK", sRemark);
+            UDataQuerySet set = new UDataQuerySet("SP_REQ_UPDATE", CommandType.StoredProcedure);
+
+            set.AddParam("@ID", requirement.Id);
+            set.AddParam("@CATID", requirement.CategoryId);
+            set.AddParam("@IDX", requirement.Index);
+            set.AddParam("@REQNMT", requirement.Requirement);
 
             try
             {
-                int nRemarkID = m_agent.GetValue<int>(set);
-                ModelRemark remark = new ModelRemark();
-                remark.ProjectId = m_selectedRequirement.ProjectId;
-                remark.RequirementId = m_selectedRequirement.Id;
-                remark.ID = nRemarkID;
-                remark.Contents = sRemark;
-
-                m_selectedRequirement.AllRemark.Add(remark);
+                m_agent.ExecuteQuery(set);  
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+
+
+        public void AddRemark(ModelRemark remark)
+        {
+            if (remark.RequirementId > -1)
+            {
+                UDataQuerySet set = new UDataQuerySet("SP_REQ_REMARK_INSERT", CommandType.StoredProcedure);
+                set.AddParam("@PRJID", remark.ProjectId);
+                set.AddParam("@REQID", remark.RequirementId);
+                set.AddParam("@REMARK", remark.Contents);
+
+                try
+                {
+                    int nRemarkID = m_agent.GetValue<int>(set);
+                    remark.ID = nRemarkID;
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    remark.ID = -1;
+                }
+            }
+        }
+
+        public void UpdateRemark(ModelRemark remark)
+        {
+            UDataQuerySet set = new UDataQuerySet("SP_REQ_REMARK_UPDATE", CommandType.StoredProcedure);
+            set.AddParam("@ID", remark.ID);
+            set.AddParam("@REMARK", remark.Contents);
+
+            try
+            {
+                m_agent.ExecuteQuery(set);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+        internal void DeleteRemark(ModelRemark selectedRemark)
+        {
+            UDataQuerySet set = new UDataQuerySet("SP_REQ_REMARK_DELETE", CommandType.StoredProcedure);
+            set.AddParam("@ID", selectedRemark.ID);
+
+            try
+            {
+                m_agent.ExecuteQuery(set);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
+        internal void DelRequirement(ModelReqmnt selectedRequirement)
+        {
+            UDataQuerySet set = new UDataQuerySet("SP_REQ_DELETE", CommandType.StoredProcedure);
+            set.AddParam("@ID", selectedRequirement.Id);
+
+            try
+            {
+                m_agent.ExecuteQuery(set);
+            }
+            catch (Exception ex)
             {
                 log.Error(ex);
             }

@@ -66,7 +66,7 @@ namespace RequireManager.UI
         void Category_OnCategoryAdded(ModelCategory model)
         {
             if (this.InvokeRequired)
-                this.Invoke(new MgrCategory.OnCategoryAddedHandler(Category_OnCategoryAdded), model);
+                this.Invoke(new MgrCategory.OnCategorySingleModelHandler(Category_OnCategoryAdded), model);
             else if (model != null && model.Parent != null)
             {
                 string sPath = model.Parent.FullPath;
@@ -83,7 +83,7 @@ namespace RequireManager.UI
         void Category_OnCategoryDeleted(ModelCategory model)
         {
             if (this.InvokeRequired)
-                this.Invoke(new MgrCategory.OnCategoryDeletedHandler(Category_OnCategoryDeleted), model);
+                this.Invoke(new MgrCategory.OnCategorySingleModelHandler(Category_OnCategoryDeleted), model);
             else if (model != null)
             {
                 string sPath = model.FullPath;

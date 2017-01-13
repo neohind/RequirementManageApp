@@ -9,11 +9,12 @@ namespace RequireManager.Manager
 {
     public class MgrCategory
     {
-        public delegate void OnCategoryAddedHandler(ModelCategory model);
-        public event OnCategoryAddedHandler OnCategoryAdded;
+        public delegate void OnCategorySingleModelHandler(ModelCategory model);
 
-        public delegate void OnCategoryDeletedHandler(ModelCategory model);
-        public event OnCategoryDeletedHandler OnCategoryDeleted;
+
+        public event OnCategorySingleModelHandler OnSelectedCategoryChanged;
+        public event OnCategorySingleModelHandler OnCategoryAdded;
+        public event OnCategorySingleModelHandler OnCategoryDeleted;
 
         DataManager m_parent = null;
         
@@ -42,10 +43,23 @@ namespace RequireManager.Manager
             private set;
         }
 
+        public List<ModelCategory> AllCategoryExceptRoot
+        {
+            get
+            {
+                List<ModelCategory> aryResults = new List<ModelCategory>();
+                aryResults.AddRange(AllCategories);
+                aryResults.Remove(Root);
+                return aryResults;
+            }
+            
+        }
+
+
         public MgrCategory(DataManager parent)
         {
             m_parent = parent;
-            AllCategories = new List<ModelCategory>();
+            AllCategories = new List<ModelCategory>();            
         }
 
 
@@ -111,12 +125,15 @@ namespace RequireManager.Manager
         }
 
         internal void SetCategory(ModelCategory category)
-        {
+        {               
             SelectedCategory = category;
+            if (OnSelectedCategoryChanged != null)
+                OnSelectedCategoryChanged(category);
         }
 
         internal void AddCategory(ModelCategory modelParentCategory, ModelCategory modelCategory)
         {
+            AllCategories.Add(modelCategory);
             modelParentCategory.Childs.Add(modelCategory);
             modelCategory.Parent = modelParentCategory;
             DacFactory.Current.Category.AddCategory(modelCategory);
