@@ -158,6 +158,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.Name = "frmCategory";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmCategory";
             this.ResumeLayout(false);
             this.PerformLayout();

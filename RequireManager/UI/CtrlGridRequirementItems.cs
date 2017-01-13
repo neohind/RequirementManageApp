@@ -25,6 +25,7 @@ namespace RequireManager.UI
         void m_frmRequirement_OnRequirementUpdated(object sender, EventArgs e)
         {
             ReloadRequirements();
+            
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
@@ -50,6 +51,8 @@ namespace RequireManager.UI
         {
             m_frmRequirement.SetAllCategories();
             ReloadRequirements();
+            if (m_frmRequirement.Visible)
+                m_frmRequirement.Close();
         }
 
         private void ReloadRequirements()

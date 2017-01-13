@@ -47,9 +47,15 @@
             this.btnRemarkApply = new System.Windows.Forms.Button();
             this.listRemark = new System.Windows.Forms.ListBox();
             this.txtRemark = new System.Windows.Forms.TextBox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -112,8 +118,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.btnRemarkApply);
             this.splitContainer1.Panel2.Controls.Add(this.listRemark);
             this.splitContainer1.Panel2.Controls.Add(this.txtRemark);
-            this.splitContainer1.Size = new System.Drawing.Size(658, 381);
-            this.splitContainer1.SplitterDistance = 160;
+            this.splitContainer1.Size = new System.Drawing.Size(658, 376);
+            this.splitContainer1.SplitterDistance = 152;
             this.splitContainer1.TabIndex = 36;
             // 
             // btnRemark
@@ -255,11 +261,52 @@
             this.txtRemark.Size = new System.Drawing.Size(454, 52);
             this.txtRemark.TabIndex = 34;
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.IsSplitterFixed = true;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.btnNext);
+            this.splitContainer2.Panel1.Controls.Add(this.btnPrev);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
+            this.splitContainer2.Size = new System.Drawing.Size(658, 419);
+            this.splitContainer2.SplitterDistance = 39;
+            this.splitContainer2.TabIndex = 37;
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(12, 8);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev.TabIndex = 0;
+            this.btnPrev.Text = "<<";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(93, 8);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 0;
+            this.btnNext.Text = ">>";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
             // frmRequirement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(658, 381);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(658, 419);
+            this.Controls.Add(this.splitContainer2);
             this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.Name = "frmRequirement";
             this.Text = "frmRequirement";
@@ -268,6 +315,9 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -293,6 +343,9 @@
         private System.Windows.Forms.Button btnRemarkApply;
         private System.Windows.Forms.ListBox listRemark;
         private System.Windows.Forms.TextBox txtRemark;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrev;
 
     }
 }

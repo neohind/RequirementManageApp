@@ -100,7 +100,7 @@ namespace RequireManager
         private void CollapsRemark(bool bIsCollas)
         {
             splitContainer1.Panel2Collapsed = bIsCollas;
-            this.Height = (bIsCollas) ? 200 : 420;
+            this.Height = (bIsCollas) ? 250 : 470;
         }
 
         private void Init()
@@ -331,6 +331,24 @@ namespace RequireManager
         private void btnRemark_Click(object sender, EventArgs e)
         {
             CollapsRemark(!splitContainer1.Panel2Collapsed);
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            int nIndex = DataManager.Current.Requirement.SelectedRequirements.IndexOf(CurRequirement) - 1;
+            if (nIndex < 0)
+                nIndex = DataManager.Current.Requirement.SelectedRequirements.Count - 1;
+            CurRequirement = DataManager.Current.Requirement.SelectedRequirements[nIndex];
+            Init();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            int nIndex = DataManager.Current.Requirement.SelectedRequirements.IndexOf(CurRequirement) + 1;
+            if (nIndex >= DataManager.Current.Requirement.SelectedRequirements.Count)
+                nIndex = 0;
+            CurRequirement = DataManager.Current.Requirement.SelectedRequirements[nIndex];
+            Init();
         }
 
 

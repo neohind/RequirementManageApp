@@ -14,6 +14,7 @@ namespace RequireManager
 {
     public partial class frmLogin : Form
     {
+        int m_nSelectedProjectID = 0;
         public frmLogin()
         {
             InitializeComponent();
@@ -22,6 +23,10 @@ namespace RequireManager
             string sConnectionString = Convert.ToString(Application.UserAppDataRegistry.GetValue("LASTDBNAME"));
             if (string.IsNullOrEmpty(sConnectionString) == false)
                 txtConnectionString.Text = sConnectionString;
+
+            object objIndex = Application.UserAppDataRegistry.GetValue("LASTPROJECT");
+            if(objIndex != null)
+                m_nSelectedProjectID = Convert.ToInt32(Application.UserAppDataRegistry.GetValue("LASTPROJECT"));
 
         }
 
@@ -33,6 +38,7 @@ namespace RequireManager
                 ModelProject selectedProject = cmbProjects.Items[nSelectedIndex] as ModelProject;
                 DataManager.Current.SetProject(selectedProject);                
                 Application.UserAppDataRegistry.SetValue("LASTDBNAME", txtConnectionString.Text);
+                Application.UserAppDataRegistry.SetValue("LASTPROJECT", selectedProject.ID);
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Close();
             }
@@ -60,6 +66,13 @@ namespace RequireManager
                     btnOpen.Enabled = true;
                     btnCancel.Enabled = true;
                     cmbProjects.Enabled = true;
+
+                    ModelProject prevProject = aryProject.Find(m => m.ID == m_nSelectedProjectID);
+                    if(prevProject != null)
+                    {
+                        int nIndex = aryProject.IndexOf(prevProject);
+                        cmbProjects.SelectedIndex = nIndex;
+                    }
                 }
             }
         }
