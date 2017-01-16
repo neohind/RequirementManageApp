@@ -30,10 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gridItems = new System.Windows.Forms.DataGridView();
+            this.pATHDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDXDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rEQNMTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pRJIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cATIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sRCIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eNABLEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cREATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uPDATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sRCDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuItemReqAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemReqEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemReqDel = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemReorder = new System.Windows.Forms.ToolStripMenuItem();
             this.m_dsRequirements = new System.Data.DataSet();
             this.tbRequirement = new System.Data.DataTable();
             this.colID = new System.Data.DataColumn();
@@ -46,25 +59,18 @@
             this.colCREATED = new System.Data.DataColumn();
             this.colUPDATED = new System.Data.DataColumn();
             this.colPATH = new System.Data.DataColumn();
-            this.pATHDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDXDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rEQNMTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pRJIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cATIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sRCIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eNABLEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cREATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uPDATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuItemReorder = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sRCDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSRC = new System.Data.DataColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblPath = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_dsRequirements)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRequirement)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridItems
@@ -94,11 +100,99 @@
             this.gridItems.Location = new System.Drawing.Point(0, 0);
             this.gridItems.Margin = new System.Windows.Forms.Padding(4);
             this.gridItems.Name = "gridItems";
+            this.gridItems.ReadOnly = true;
             this.gridItems.RowHeadersVisible = false;
             this.gridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridItems.Size = new System.Drawing.Size(821, 498);
+            this.gridItems.Size = new System.Drawing.Size(821, 452);
             this.gridItems.TabIndex = 1;
             this.gridItems.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridItems_CellMouseDown);
+            // 
+            // pATHDataGridViewTextBoxColumn
+            // 
+            this.pATHDataGridViewTextBoxColumn.DataPropertyName = "PATH";
+            this.pATHDataGridViewTextBoxColumn.HeaderText = "Path";
+            this.pATHDataGridViewTextBoxColumn.Name = "pATHDataGridViewTextBoxColumn";
+            this.pATHDataGridViewTextBoxColumn.ReadOnly = true;
+            this.pATHDataGridViewTextBoxColumn.Width = 250;
+            // 
+            // iDXDataGridViewTextBoxColumn
+            // 
+            this.iDXDataGridViewTextBoxColumn.DataPropertyName = "IDX";
+            this.iDXDataGridViewTextBoxColumn.HeaderText = "Index";
+            this.iDXDataGridViewTextBoxColumn.Name = "iDXDataGridViewTextBoxColumn";
+            this.iDXDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // rEQNMTDataGridViewTextBoxColumn
+            // 
+            this.rEQNMTDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rEQNMTDataGridViewTextBoxColumn.DataPropertyName = "REQNMT";
+            this.rEQNMTDataGridViewTextBoxColumn.HeaderText = "Requirement";
+            this.rEQNMTDataGridViewTextBoxColumn.Name = "rEQNMTDataGridViewTextBoxColumn";
+            this.rEQNMTDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // pRJIDDataGridViewTextBoxColumn
+            // 
+            this.pRJIDDataGridViewTextBoxColumn.DataPropertyName = "PRJID";
+            this.pRJIDDataGridViewTextBoxColumn.HeaderText = "PRJID";
+            this.pRJIDDataGridViewTextBoxColumn.Name = "pRJIDDataGridViewTextBoxColumn";
+            this.pRJIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.pRJIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // cATIDDataGridViewTextBoxColumn
+            // 
+            this.cATIDDataGridViewTextBoxColumn.DataPropertyName = "CATID";
+            this.cATIDDataGridViewTextBoxColumn.HeaderText = "CATID";
+            this.cATIDDataGridViewTextBoxColumn.Name = "cATIDDataGridViewTextBoxColumn";
+            this.cATIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cATIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // sRCIDDataGridViewTextBoxColumn
+            // 
+            this.sRCIDDataGridViewTextBoxColumn.DataPropertyName = "SRCID";
+            this.sRCIDDataGridViewTextBoxColumn.HeaderText = "SRCID";
+            this.sRCIDDataGridViewTextBoxColumn.Name = "sRCIDDataGridViewTextBoxColumn";
+            this.sRCIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sRCIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eNABLEDDataGridViewTextBoxColumn
+            // 
+            this.eNABLEDDataGridViewTextBoxColumn.DataPropertyName = "ENABLED";
+            this.eNABLEDDataGridViewTextBoxColumn.HeaderText = "ENABLED";
+            this.eNABLEDDataGridViewTextBoxColumn.Name = "eNABLEDDataGridViewTextBoxColumn";
+            this.eNABLEDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eNABLEDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // cREATEDDataGridViewTextBoxColumn
+            // 
+            this.cREATEDDataGridViewTextBoxColumn.DataPropertyName = "CREATED";
+            this.cREATEDDataGridViewTextBoxColumn.HeaderText = "CREATED";
+            this.cREATEDDataGridViewTextBoxColumn.Name = "cREATEDDataGridViewTextBoxColumn";
+            this.cREATEDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cREATEDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // uPDATEDDataGridViewTextBoxColumn
+            // 
+            this.uPDATEDDataGridViewTextBoxColumn.DataPropertyName = "UPDATED";
+            this.uPDATEDDataGridViewTextBoxColumn.HeaderText = "UPDATED";
+            this.uPDATEDDataGridViewTextBoxColumn.Name = "uPDATEDDataGridViewTextBoxColumn";
+            this.uPDATEDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.uPDATEDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // sRCDataGridViewTextBoxColumn
+            // 
+            this.sRCDataGridViewTextBoxColumn.DataPropertyName = "SRC";
+            this.sRCDataGridViewTextBoxColumn.HeaderText = "SRC";
+            this.sRCDataGridViewTextBoxColumn.Name = "sRCDataGridViewTextBoxColumn";
+            this.sRCDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sRCDataGridViewTextBoxColumn.Visible = false;
             // 
             // contextMenuStrip1
             // 
@@ -109,7 +203,7 @@
             this.toolStripSeparator1,
             this.menuItemReorder});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(179, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(179, 98);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // menuItemReqAdd
@@ -132,6 +226,18 @@
             this.menuItemReqDel.Size = new System.Drawing.Size(178, 22);
             this.menuItemReqDel.Text = "Delete Requirement";
             this.menuItemReqDel.Click += new System.EventHandler(this.ContextMenu_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
+            // 
+            // menuItemReorder
+            // 
+            this.menuItemReorder.Name = "menuItemReorder";
+            this.menuItemReorder.Size = new System.Drawing.Size(178, 22);
+            this.menuItemReorder.Text = "Reorder Index";
+            this.menuItemReorder.Click += new System.EventHandler(this.ContextMenu_Click);
             // 
             // m_dsRequirements
             // 
@@ -196,86 +302,10 @@
             this.colPATH.Caption = "PATH";
             this.colPATH.ColumnName = "PATH";
             // 
-            // pATHDataGridViewTextBoxColumn
+            // colSRC
             // 
-            this.pATHDataGridViewTextBoxColumn.DataPropertyName = "PATH";
-            this.pATHDataGridViewTextBoxColumn.HeaderText = "Path";
-            this.pATHDataGridViewTextBoxColumn.Name = "pATHDataGridViewTextBoxColumn";
-            this.pATHDataGridViewTextBoxColumn.Width = 250;
-            // 
-            // iDXDataGridViewTextBoxColumn
-            // 
-            this.iDXDataGridViewTextBoxColumn.DataPropertyName = "IDX";
-            this.iDXDataGridViewTextBoxColumn.HeaderText = "Index";
-            this.iDXDataGridViewTextBoxColumn.Name = "iDXDataGridViewTextBoxColumn";
-            // 
-            // rEQNMTDataGridViewTextBoxColumn
-            // 
-            this.rEQNMTDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rEQNMTDataGridViewTextBoxColumn.DataPropertyName = "REQNMT";
-            this.rEQNMTDataGridViewTextBoxColumn.HeaderText = "Requirement";
-            this.rEQNMTDataGridViewTextBoxColumn.Name = "rEQNMTDataGridViewTextBoxColumn";
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // pRJIDDataGridViewTextBoxColumn
-            // 
-            this.pRJIDDataGridViewTextBoxColumn.DataPropertyName = "PRJID";
-            this.pRJIDDataGridViewTextBoxColumn.HeaderText = "PRJID";
-            this.pRJIDDataGridViewTextBoxColumn.Name = "pRJIDDataGridViewTextBoxColumn";
-            this.pRJIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // cATIDDataGridViewTextBoxColumn
-            // 
-            this.cATIDDataGridViewTextBoxColumn.DataPropertyName = "CATID";
-            this.cATIDDataGridViewTextBoxColumn.HeaderText = "CATID";
-            this.cATIDDataGridViewTextBoxColumn.Name = "cATIDDataGridViewTextBoxColumn";
-            this.cATIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // sRCIDDataGridViewTextBoxColumn
-            // 
-            this.sRCIDDataGridViewTextBoxColumn.DataPropertyName = "SRCID";
-            this.sRCIDDataGridViewTextBoxColumn.HeaderText = "SRCID";
-            this.sRCIDDataGridViewTextBoxColumn.Name = "sRCIDDataGridViewTextBoxColumn";
-            this.sRCIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // eNABLEDDataGridViewTextBoxColumn
-            // 
-            this.eNABLEDDataGridViewTextBoxColumn.DataPropertyName = "ENABLED";
-            this.eNABLEDDataGridViewTextBoxColumn.HeaderText = "ENABLED";
-            this.eNABLEDDataGridViewTextBoxColumn.Name = "eNABLEDDataGridViewTextBoxColumn";
-            this.eNABLEDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // cREATEDDataGridViewTextBoxColumn
-            // 
-            this.cREATEDDataGridViewTextBoxColumn.DataPropertyName = "CREATED";
-            this.cREATEDDataGridViewTextBoxColumn.HeaderText = "CREATED";
-            this.cREATEDDataGridViewTextBoxColumn.Name = "cREATEDDataGridViewTextBoxColumn";
-            this.cREATEDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // uPDATEDDataGridViewTextBoxColumn
-            // 
-            this.uPDATEDDataGridViewTextBoxColumn.DataPropertyName = "UPDATED";
-            this.uPDATEDDataGridViewTextBoxColumn.HeaderText = "UPDATED";
-            this.uPDATEDDataGridViewTextBoxColumn.Name = "uPDATEDDataGridViewTextBoxColumn";
-            this.uPDATEDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
-            // 
-            // menuItemReorder
-            // 
-            this.menuItemReorder.Name = "menuItemReorder";
-            this.menuItemReorder.Size = new System.Drawing.Size(178, 22);
-            this.menuItemReorder.Text = "Reorder Index";
-            this.menuItemReorder.Click += new System.EventHandler(this.ContextMenu_Click);
+            this.colSRC.ColumnName = "SRC";
+            this.colSRC.DataType = typeof(object);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -284,29 +314,60 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Visible = false;
             // 
-            // sRCDataGridViewTextBoxColumn
+            // splitContainer1
             // 
-            this.sRCDataGridViewTextBoxColumn.DataPropertyName = "SRC";
-            this.sRCDataGridViewTextBoxColumn.HeaderText = "SRC";
-            this.sRCDataGridViewTextBoxColumn.Name = "sRCDataGridViewTextBoxColumn";
-            this.sRCDataGridViewTextBoxColumn.Visible = false;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // colSRC
+            // splitContainer1.Panel1
             // 
-            this.colSRC.ColumnName = "SRC";
-            this.colSRC.DataType = typeof(object);
+            this.splitContainer1.Panel1.Controls.Add(this.lblPath);
+            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.gridItems);
+            this.splitContainer1.Size = new System.Drawing.Size(821, 498);
+            this.splitContainer1.SplitterDistance = 42;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // lblPath
+            // 
+            this.lblPath.AutoSize = true;
+            this.lblPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPath.Location = new System.Drawing.Point(67, 14);
+            this.lblPath.Name = "lblPath";
+            this.lblPath.Size = new System.Drawing.Size(0, 20);
+            this.lblPath.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "PATH : ";
             // 
             // CtrlGridRequirementItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gridItems);
+            this.Controls.Add(this.splitContainer1);
             this.Name = "CtrlGridRequirementItems";
             this.Size = new System.Drawing.Size(821, 498);
             ((System.ComponentModel.ISupportInitialize)(this.gridItems)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.m_dsRequirements)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRequirement)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -345,5 +406,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuItemReorder;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPath;
     }
 }

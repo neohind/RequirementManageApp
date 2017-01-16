@@ -45,17 +45,24 @@ namespace RequireManager.Manager
 
         private void UpdateSelectedRequirements(ModelCategory category)
         {
-            if (category.ParentId == -1)
-            {
+            //if (category.ParentId == -1)
+            //{
+            //    SelectedRequirements.Clear();
+            //    SelectedRequirements.AddRange(m_aryAllRequirements);
+            //}
+            //else
+            //{
+                List<ModelCategory> aryAllChildCategories = m_parent.Category.GetAllChildCategories(category.Id);
+
                 SelectedRequirements.Clear();
-                SelectedRequirements.AddRange(m_aryAllRequirements);
-            }
-            else
-            {
-                SelectedRequirements = m_aryAllRequirements.FindAll(m => m.CategoryId == category.Id);
-                foreach (ModelReqmnt req in SelectedRequirements)
-                    req.CategoryPath = category.Path;
-            }
+                foreach(ModelCategory curCategory in aryAllChildCategories)
+                {
+                    List<ModelReqmnt> aryRequirement = m_aryAllRequirements.FindAll(m => m.CategoryId == curCategory.Id);
+                    foreach (ModelReqmnt req in aryRequirement)
+                        req.CategoryPath = curCategory.Path;
+                    SelectedRequirements.AddRange(aryRequirement);
+                }
+            //}
         }
 
         internal List<ModelReqmnt> FindAll(int nCategoryID)
@@ -79,17 +86,19 @@ namespace RequireManager.Manager
 
         internal ModelReqmnt NewRequirement()
         {
-            int nMaxIndex = 0;
-            foreach (ModelReqmnt req in SelectedRequirements)
-                if (req.Index > nMaxIndex)
-                    nMaxIndex = req.Index;
             ModelReqmnt newReq = new ModelReqmnt();
-            newReq.Id = -1;
-            newReq.Index = nMaxIndex + 1;
-            newReq.ProjectId = m_parent.SelectedProject.ID;
-            newReq.CategoryId = m_parent.Category.SelectedCategory.Id;
-            newReq.CategoryPath = m_parent.Category.SelectedCategory.Path;
-
+            if (m_parent != null && m_parent.SelectedProject != null)
+            {
+                int nMaxIndex = 0;
+                foreach (ModelReqmnt req in SelectedRequirements)
+                    if (req.Index > nMaxIndex)
+                        nMaxIndex = req.Index;                     
+                newReq.Id = -1;
+                newReq.Index = nMaxIndex + 1;
+                newReq.ProjectId = m_parent.SelectedProject.ID;
+                newReq.CategoryId = m_parent.Category.SelectedCategory.Id;
+                newReq.CategoryPath = m_parent.Category.SelectedCategory.Path;
+            }
             return newReq;
         }
 

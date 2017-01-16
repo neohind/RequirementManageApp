@@ -155,5 +155,23 @@ namespace RequireManager.Manager
             if (OnCategoryDeleted != null)
                 OnCategoryDeleted(selectedCategory);
         }
+
+        internal List<ModelCategory> GetAllChildCategories(int nCategoryID)
+        {
+            List<ModelCategory> aryResult = new List<ModelCategory>();
+            ModelCategory category = AllCategories.Find(m => m.Id == nCategoryID);
+            if (category != null)
+            {
+                aryResult.Add(category);
+
+                List<ModelCategory> childCategories = AllCategories.FindAll(m => m.ParentId == nCategoryID);
+                foreach (ModelCategory childCategory in childCategories)
+                {
+                    List<ModelCategory> aryChildCategory = GetAllChildCategories(childCategory.Id);
+                    aryResult.AddRange(aryChildCategory);
+                }
+            }
+            return aryResult;
+        }
     }
 }

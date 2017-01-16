@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.ctrlCategoryNavigator1 = new RequireManager.UI.CtrlCategoryNavigator();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.ctrlCategoryNavigator1 = new RequireManager.UI.CtrlCategoryNavigator();
             this.ctrlGridRequirementItems1 = new RequireManager.UI.CtrlGridRequirementItems();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -42,6 +42,8 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
@@ -53,18 +55,10 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.ctrlGridRequirementItems1);
-            this.splitContainer1.Size = new System.Drawing.Size(974, 602);
-            this.splitContainer1.SplitterDistance = 206;
+            this.splitContainer1.Size = new System.Drawing.Size(1274, 602);
+            this.splitContainer1.SplitterDistance = 269;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // ctrlCategoryNavigator1
-            // 
-            this.ctrlCategoryNavigator1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlCategoryNavigator1.Location = new System.Drawing.Point(0, 0);
-            this.ctrlCategoryNavigator1.Name = "ctrlCategoryNavigator1";
-            this.ctrlCategoryNavigator1.Size = new System.Drawing.Size(206, 602);
-            this.ctrlCategoryNavigator1.TabIndex = 0;
             // 
             // splitContainer3
             // 
@@ -78,22 +72,30 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer3.Size = new System.Drawing.Size(974, 651);
+            this.splitContainer3.Size = new System.Drawing.Size(1274, 651);
             this.splitContainer3.SplitterDistance = 45;
             this.splitContainer3.TabIndex = 2;
+            // 
+            // ctrlCategoryNavigator1
+            // 
+            this.ctrlCategoryNavigator1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlCategoryNavigator1.Location = new System.Drawing.Point(0, 0);
+            this.ctrlCategoryNavigator1.Name = "ctrlCategoryNavigator1";
+            this.ctrlCategoryNavigator1.Size = new System.Drawing.Size(269, 602);
+            this.ctrlCategoryNavigator1.TabIndex = 0;
             // 
             // ctrlGridRequirementItems1
             // 
             this.ctrlGridRequirementItems1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctrlGridRequirementItems1.Location = new System.Drawing.Point(0, 0);
             this.ctrlGridRequirementItems1.Name = "ctrlGridRequirementItems1";
-            this.ctrlGridRequirementItems1.Size = new System.Drawing.Size(763, 602);
+            this.ctrlGridRequirementItems1.Size = new System.Drawing.Size(1000, 602);
             this.ctrlGridRequirementItems1.TabIndex = 0;
             // 
             // frmMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(984, 661);
+            this.ClientSize = new System.Drawing.Size(1284, 661);
             this.Controls.Add(this.splitContainer3);
             this.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Margin = new System.Windows.Forms.Padding(4);

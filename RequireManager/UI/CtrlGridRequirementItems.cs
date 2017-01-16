@@ -57,6 +57,12 @@ namespace RequireManager.UI
 
         private void ReloadRequirements()
         {
+            lblPath.Text = (DataManager.Current.Category.SelectedCategory == null
+                || string.IsNullOrEmpty(DataManager.Current.Category.SelectedCategory.Path))
+                ? "ROOT"
+                : DataManager.Current.Category.SelectedCategory.Path;
+
+
             List<ModelReqmnt> requirements = DataManager.Current.Requirement.SelectedRequirements;
             tbRequirement.Rows.Clear();
             foreach (ModelReqmnt req in requirements)

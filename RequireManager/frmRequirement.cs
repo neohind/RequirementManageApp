@@ -55,8 +55,11 @@ namespace RequireManager
         public frmRequirement()
         {
             InitializeComponent();
-            DataManager.Current.Category.OnSelectedCategoryChanged += Category_OnSelectedCategoryChanged;
-            Init();
+            if (DataManager.Current != null)
+            {
+                DataManager.Current.Category.OnSelectedCategoryChanged += Category_OnSelectedCategoryChanged;
+                Init();
+            }
         }
 
 
@@ -130,14 +133,17 @@ namespace RequireManager
                     category = DataManager.Current.Category.ETC;
                 }
 
-                int nIndex = cmbPath.Items.IndexOf(category);
-                cmbPath.SelectedIndex = nIndex;
 
+                if (category != null)
+                {
+                    int nIndex = cmbPath.Items.IndexOf(category);
+                    cmbPath.SelectedIndex = nIndex;
 
-                txtIndex.Text = Convert.ToString(CurRequirement.Index);
-                txtRequirements.Text = CurRequirement.Requirement;
-                listRemark.DataSource = CurRequirement.AllRemark;
-                listRemark.DisplayMember = "Contents";   
+                    txtIndex.Text = Convert.ToString(CurRequirement.Index);
+                    txtRequirements.Text = CurRequirement.Requirement;
+                    listRemark.DataSource = CurRequirement.AllRemark;
+                    listRemark.DisplayMember = "Contents";
+                }
             }
         }
 

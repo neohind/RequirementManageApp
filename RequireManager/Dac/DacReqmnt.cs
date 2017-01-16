@@ -80,7 +80,7 @@ namespace RequireManager.Dac
             set.AddParam("@CATID", newRequirement.CategoryId);
             set.AddParam("@IDX", newRequirement.Index);
             set.AddParam("@SRCID", newRequirement.SourceId);
-            set.AddParam("@REQNMT", newRequirement.Requirement);
+            set.AddParam("@REQNMT", newRequirement.Requirement.Trim());
 
             try
             {
@@ -107,7 +107,7 @@ namespace RequireManager.Dac
             set.AddParam("@ID", requirement.Id);
             set.AddParam("@CATID", requirement.CategoryId);
             set.AddParam("@IDX", requirement.Index);
-            set.AddParam("@REQNMT", requirement.Requirement);
+            set.AddParam("@REQNMT", requirement.Requirement.Trim());
 
             try
             {
@@ -128,7 +128,7 @@ namespace RequireManager.Dac
                 UDataQuerySet set = new UDataQuerySet("SP_REQ_REMARK_INSERT", CommandType.StoredProcedure);
                 set.AddParam("@PRJID", remark.ProjectId);
                 set.AddParam("@REQID", remark.RequirementId);
-                set.AddParam("@REMARK", remark.Contents);
+                set.AddParam("@REMARK", remark.Contents.Trim());
 
                 try
                 {
@@ -147,7 +147,7 @@ namespace RequireManager.Dac
         {
             UDataQuerySet set = new UDataQuerySet("SP_REQ_REMARK_UPDATE", CommandType.StoredProcedure);
             set.AddParam("@ID", remark.ID);
-            set.AddParam("@REMARK", remark.Contents);
+            set.AddParam("@REMARK", remark.Contents.Trim());
 
             try
             {

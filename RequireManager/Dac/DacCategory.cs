@@ -97,10 +97,10 @@ namespace RequireManager.Dac
             UDataQuerySet set = new UDataQuerySet(sQuery);
             set.AddParam("@ID", selectedCategory.Id);
             set.AddParam("@PID", selectedCategory.ParentId);
-            set.AddParam("@PRJID", selectedCategory.ProjectId);       
-            set.AddParam("@CODE", selectedCategory.Code);
-            set.AddParam("@DISPNM", selectedCategory.DisplayName);
-            set.AddParam("@DESCRPT", selectedCategory.Description);
+            set.AddParam("@PRJID", selectedCategory.ProjectId);
+            set.AddParam("@CODE", selectedCategory.Code.Trim());
+            set.AddParam("@DISPNM", selectedCategory.DisplayName.Trim());
+            set.AddParam("@DESCRPT", selectedCategory.Description.Trim());
               try
             {
                 m_agent.ExecuteQuery(set);                

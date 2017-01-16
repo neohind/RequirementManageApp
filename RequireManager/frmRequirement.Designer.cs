@@ -309,7 +309,7 @@
             this.Controls.Add(this.splitContainer2);
             this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.Name = "frmRequirement";
-            this.Text = "frmRequirement";
+            this.Text = "Requirement Detail Editor";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

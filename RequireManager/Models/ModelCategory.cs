@@ -124,6 +124,9 @@ namespace RequireManager.Models
         public ModelCategory()
         {
             Childs = new List<ModelCategory>();
+            Code = string.Empty;
+            DisplayName = string.Empty;
+            Description = string.Empty;
         }
 
 
