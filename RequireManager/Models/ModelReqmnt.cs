@@ -7,6 +7,21 @@ namespace RequireManager.Models
 {
     public class ModelReqmnt : ModelBase
     {
+
+        private ModelCategory m_curCategory = null;
+
+        public ModelCategory Category
+        {
+            get
+            {
+                return m_curCategory;
+            }
+            set
+            {
+                m_curCategory = value;
+            }
+        }
+
         [DbPropName("ID")]
         public int Id
         {
@@ -22,17 +37,49 @@ namespace RequireManager.Models
         }
 
         [DbPropName("CATID")]
-        public int CategoryId
+        public int CategoryIdFromDB
         {
             get;
             set;
         }
-        
+
+        public int CategoryId
+        {
+            get
+            {
+                if (Category != null)
+                    return Category.Id;
+                return -1;
+            }
+        }
+
         [DbPropName("PATH")]
         public string CategoryPath
         {
-            get;
-            set;
+            get
+            {
+                if (Category != null)
+                    return Category.Path;
+                return string.Empty;
+            }
+            set
+            {   
+            }
+        }
+
+        [DbPropName("CATNM")]
+        public string CategoryName
+        {
+            get
+            {
+                if (Category != null)
+                    return Category.DisplayName;
+                return string.Empty;
+            }
+            set
+            {
+
+            }
         }
 
         [DbPropName("IDX")]

@@ -153,9 +153,8 @@ namespace RequireManager
         private void btnOK_Click(object sender, EventArgs e)
         {
             int nSelectedIndex = cmbPath.SelectedIndex;
-            ModelCategory category = (ModelCategory)cmbPath.Items[nSelectedIndex];
-            CurRequirement.CategoryId = category.Id;
-            CurRequirement.CategoryPath = category.Path;
+            ModelCategory category = (ModelCategory)cmbPath.Items[nSelectedIndex];            
+            CurRequirement.Category = category;
 
 
             CurRequirement.Index = Convert.ToInt32(txtIndex.Text);
@@ -168,8 +167,8 @@ namespace RequireManager
         {
             int nSelectedIndex = cmbPath.SelectedIndex;
             ModelCategory category = (ModelCategory)cmbPath.Items[nSelectedIndex];
-            CurRequirement.CategoryId = category.Id;
-            CurRequirement.CategoryPath = category.Path;
+            CurRequirement.Category = category;
+            
 
             CurRequirement.Index = Convert.ToInt32(txtIndex.Text);
             CurRequirement.Requirement = txtRequirements.Text;

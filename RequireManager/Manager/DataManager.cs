@@ -76,13 +76,12 @@ namespace RequireManager.Manager
         {
             List<ModelReqmnt> aryReqs = Requirement.FindAll(selectedCategory.Id);
             foreach (ModelReqmnt req in aryReqs)
-                req.CategoryId = Category.ETC.Id;
+                req.Category = Category.ETC;
             Category.Remove(selectedCategory);
         }
 
         internal void UpdateCategory(ModelCategory modelCategory)
         {
-            Requirement.UpdatePath(modelCategory);
             Category.Edit(modelCategory);
         }
     }

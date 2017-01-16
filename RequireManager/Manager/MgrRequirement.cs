@@ -35,8 +35,9 @@ namespace RequireManager.Manager
             ModelProject selectedProject = m_parent.SelectedProject;
             if (selectedProject != null)
             {
-                m_aryAllRequirements = DacFactory.Current.Requiremnt.GetAllRequirements(selectedProject);
-                UpdatePath(m_parent.Category.Root);
+                m_aryAllRequirements = DacFactory.Current.Requiremnt.GetAllRequirements(selectedProject, m_parent.Category.AllCategories);
+                
+                    
             }
         }
 
@@ -49,44 +50,20 @@ namespace RequireManager.Manager
 
         private void UpdateSelectedRequirements(ModelCategory category)
         {
-            //if (category.ParentId == -1)
-            //{
-            //    SelectedRequirements.Clear();
-            //    SelectedRequirements.AddRange(m_aryAllRequirements);
-            //}
-            //else
-            //{
-                List<ModelCategory> aryAllChildCategories = m_parent.Category.GetAllChildCategories(category.Id);
-
-                SelectedRequirements.Clear();
-                foreach(ModelCategory curCategory in aryAllChildCategories)
-                {
-                    List<ModelReqmnt> aryRequirement = m_aryAllRequirements.FindAll(m => m.CategoryId == curCategory.Id);
-                    foreach (ModelReqmnt req in aryRequirement)
-                        req.CategoryPath = curCategory.Path;
-                    SelectedRequirements.AddRange(aryRequirement);
-                }
-            //}
+            List<ModelCategory> aryAllChildCategories = m_parent.Category.GetAllChildCategories(category.Id);
+            SelectedRequirements.Clear();
+            foreach(ModelCategory curCategory in aryAllChildCategories)
+            {
+                List<ModelReqmnt> aryRequirement = m_aryAllRequirements.FindAll(m => m.CategoryId == curCategory.Id);                   
+                SelectedRequirements.AddRange(aryRequirement);
+            }
         }
 
         internal List<ModelReqmnt> FindAll(int nCategoryID)
         {
             return m_aryAllRequirements.FindAll(m => m.CategoryId == nCategoryID);    
         }
-
-        internal void UpdatePath(ModelCategory modelCategory)
-        {
-
-            int nCategoryID = modelCategory.Id;
-            List<ModelReqmnt> aryTargetReqs = FindAll(nCategoryID);
-            foreach(ModelReqmnt req in aryTargetReqs)
-            {
-                req.CategoryPath = modelCategory.Path;
-            }
-
-            foreach (ModelCategory childCategory in modelCategory.Childs)
-                UpdatePath(childCategory);
-        }
+       
 
         internal ModelReqmnt NewRequirement()
         {
@@ -100,8 +77,7 @@ namespace RequireManager.Manager
                 newReq.Id = -1;
                 newReq.Index = nMaxIndex + 1;
                 newReq.ProjectId = m_parent.SelectedProject.ID;
-                newReq.CategoryId = m_parent.Category.SelectedCategory.Id;
-                newReq.CategoryPath = m_parent.Category.SelectedCategory.Path;
+                newReq.Category = m_parent.Category.SelectedCategory;
             }
             return newReq;
         }
@@ -169,7 +145,7 @@ namespace RequireManager.Manager
         {
             foreach (ModelReqmnt req in aryRequirements)
             {
-                req.CategoryId = targetModel.Id;    
+                req.Category = targetModel;  
             }
             UpdateSelectedRequirements(targetModel);
             if (OnUpdateRequirements != null)

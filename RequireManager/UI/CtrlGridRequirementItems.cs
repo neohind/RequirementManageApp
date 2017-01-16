@@ -98,7 +98,7 @@ namespace RequireManager.UI
                         break;
                     case "menuItemReqEdit":
                         {
-                            if (m_selectedRequirement !=null )
+                            if(DataManager.Current.Requirement.SelectedRequirements.Contains(m_selectedRequirement))
                             {
                                 m_frmRequirement.CurRequirement = m_selectedRequirement;
                                 m_frmRequirement.Show();
@@ -108,11 +108,14 @@ namespace RequireManager.UI
                         break;
                     case "menuItemReqDel":
                         {
-                            string sMessage = string.Format("Really remove requirement? \r\n {0}", m_selectedRequirement.Requirement);
-                            if(MessageBox.Show(sMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            if (DataManager.Current.Requirement.SelectedRequirements.Contains(m_selectedRequirement))
                             {
-                                DataManager.Current.Requirement.Delete(m_selectedRequirement);
-                                ReloadRequirements();
+                                string sMessage = string.Format("Really remove requirement? \r\n {0}", m_selectedRequirement.Requirement);
+                                if (MessageBox.Show(sMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                {
+                                    DataManager.Current.Requirement.Delete(m_selectedRequirement);
+                                    ReloadRequirements();
+                                }
                             }
                         }
                         break;

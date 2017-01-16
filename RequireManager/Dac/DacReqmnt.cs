@@ -21,7 +21,7 @@ namespace RequireManager.Dac
         
 
 
-        internal List<ModelReqmnt> GetAllRequirements(ModelProject selectedProject)
+        internal List<ModelReqmnt> GetAllRequirements(ModelProject selectedProject, List<ModelCategory> aryAllCategory)
         {
             List<ModelReqmnt> aryResult = new List<ModelReqmnt>();
             
@@ -42,6 +42,7 @@ namespace RequireManager.Dac
                 {
                     ModelReqmnt req = new ModelReqmnt();
                     req.WriteData(row);
+                    req.Category = aryAllCategory.Find(m => m.Id == req.CategoryIdFromDB);
                     aryResult.Add(req);
 
                     DataRow[] aryRemarks = tbResultRemark.Select(string.Format("REQID = {0}", req.Id));

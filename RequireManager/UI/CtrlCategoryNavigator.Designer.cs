@@ -49,7 +49,6 @@
             this.treeCategory.Margin = new System.Windows.Forms.Padding(4);
             this.treeCategory.Name = "treeCategory";
             this.treeCategory.ShowNodeToolTips = true;
-            this.treeCategory.ShowPlusMinus = false;
             this.treeCategory.ShowRootLines = false;
             this.treeCategory.Size = new System.Drawing.Size(189, 504);
             this.treeCategory.TabIndex = 1;
