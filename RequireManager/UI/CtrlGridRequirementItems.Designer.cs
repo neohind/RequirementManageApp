@@ -40,7 +40,6 @@
             this.eNABLEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cREATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uPDATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sRCDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuItemReqAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemReqEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,11 +58,13 @@
             this.colCREATED = new System.Data.DataColumn();
             this.colUPDATED = new System.Data.DataColumn();
             this.colPATH = new System.Data.DataColumn();
-            this.colSRC = new System.Data.DataColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblPath = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sRCDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSRC = new System.Data.DataColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_dsRequirements)).BeginInit();
@@ -106,6 +107,9 @@
             this.gridItems.Size = new System.Drawing.Size(821, 452);
             this.gridItems.TabIndex = 1;
             this.gridItems.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridItems_CellMouseDown);
+            this.gridItems.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridItems_MouseDown);
+            this.gridItems.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridItems_MouseMove);
+            this.gridItems.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gridItems_MouseUp);
             // 
             // pATHDataGridViewTextBoxColumn
             // 
@@ -185,14 +189,6 @@
             this.uPDATEDDataGridViewTextBoxColumn.Name = "uPDATEDDataGridViewTextBoxColumn";
             this.uPDATEDDataGridViewTextBoxColumn.ReadOnly = true;
             this.uPDATEDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // sRCDataGridViewTextBoxColumn
-            // 
-            this.sRCDataGridViewTextBoxColumn.DataPropertyName = "SRC";
-            this.sRCDataGridViewTextBoxColumn.HeaderText = "SRC";
-            this.sRCDataGridViewTextBoxColumn.Name = "sRCDataGridViewTextBoxColumn";
-            this.sRCDataGridViewTextBoxColumn.ReadOnly = true;
-            this.sRCDataGridViewTextBoxColumn.Visible = false;
             // 
             // contextMenuStrip1
             // 
@@ -302,11 +298,6 @@
             this.colPATH.Caption = "PATH";
             this.colPATH.ColumnName = "PATH";
             // 
-            // colSRC
-            // 
-            this.colSRC.ColumnName = "SRC";
-            this.colSRC.DataType = typeof(object);
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "SRC";
@@ -339,7 +330,7 @@
             // 
             this.lblPath.AutoSize = true;
             this.lblPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPath.Location = new System.Drawing.Point(67, 14);
+            this.lblPath.Location = new System.Drawing.Point(67, 11);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(0, 20);
             this.lblPath.TabIndex = 1;
@@ -352,6 +343,27 @@
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "PATH : ";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "SRC";
+            this.dataGridViewTextBoxColumn2.HeaderText = "SRC";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // sRCDataGridViewTextBoxColumn
+            // 
+            this.sRCDataGridViewTextBoxColumn.DataPropertyName = "SRC";
+            this.sRCDataGridViewTextBoxColumn.HeaderText = "SRC";
+            this.sRCDataGridViewTextBoxColumn.Name = "sRCDataGridViewTextBoxColumn";
+            this.sRCDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sRCDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // colSRC
+            // 
+            this.colSRC.ColumnName = "SRC";
+            this.colSRC.DataType = typeof(object);
             // 
             // CtrlGridRequirementItems
             // 
@@ -409,5 +421,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblPath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }

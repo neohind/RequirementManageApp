@@ -48,8 +48,8 @@
             this.listRemark = new System.Windows.Forms.ListBox();
             this.txtRemark = new System.Windows.Forms.TextBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.btnPrev = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -282,16 +282,6 @@
             this.splitContainer2.SplitterDistance = 39;
             this.splitContainer2.TabIndex = 37;
             // 
-            // btnPrev
-            // 
-            this.btnPrev.Location = new System.Drawing.Point(12, 8);
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(75, 23);
-            this.btnPrev.TabIndex = 0;
-            this.btnPrev.Text = "<<";
-            this.btnPrev.UseVisualStyleBackColor = true;
-            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
-            // 
             // btnNext
             // 
             this.btnNext.Location = new System.Drawing.Point(93, 8);
@@ -302,6 +292,16 @@
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(12, 8);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev.TabIndex = 0;
+            this.btnPrev.Text = "<<";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
             // frmRequirement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -309,6 +309,7 @@
             this.Controls.Add(this.splitContainer2);
             this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
             this.Name = "frmRequirement";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Requirement Detail Editor";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

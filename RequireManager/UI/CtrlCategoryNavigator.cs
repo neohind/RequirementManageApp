@@ -20,8 +20,7 @@ namespace RequireManager.UI
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        TreeNode m_selectedNodeCategory = null;
-        TreeNode m_dragNode = null;
+        TreeNode m_selectedNodeCategory = null;        
         TreeNodeCategory m_rootNode = null;
 
 
@@ -176,29 +175,37 @@ namespace RequireManager.UI
             log.Debug(sender);
             Point pos = treeCategory.PointToClient(new Point(e.X, e.Y));
             pos.Offset(this.Padding.Left * -1, this.Padding.Top * -1);
-            TreeNode selectedNode = treeCategory.GetNodeAt(pos);            
-            if (m_dragNode != null)
-            {
-                TreeNode sourceNode = m_dragNode;
-                m_dragNode = null;
-
+            TreeNode selectedNode = treeCategory.GetNodeAt(pos);
+            
+            if (selectedNode !=  null)
+            {   
                 ModelCategory targetModel = (ModelCategory)selectedNode.Tag;
-                ModelCategory sourceModel = (ModelCategory)sourceNode.Tag;
-
-                //if ("ETC".Equals(targetModel.Code) || targetModel.Id == sourceModel.ParentId
-                //    || m_aryAllCategories.Find(m => m.ParentId == targetModel.Id && m.Code.Equals(sourceModel.Code)) != null)
-                //    return;
-
-                string sMessage = string.Format("Really move '{0}[{1}]' to '{2}[{3}]'?"
-                    , sourceModel.DisplayName, sourceModel.Code
-                    , targetModel.DisplayName, targetModel.Code);
-                if (MessageBox.Show(sMessage, "CONFIRM", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                List<ModelReqmnt> aryRequirements = e.Data.GetData(typeof(List<ModelReqmnt>)) as List<ModelReqmnt>;
+                TreeNodeCategory sourceNode = e.Data.GetData(typeof(TreeNodeCategory)) as TreeNodeCategory;
+                if (aryRequirements != null && aryRequirements.Count > 0)
                 {
-                    sourceModel.ParentId = targetModel.Id;
-                    DacFactory.Current.Category.UpdateCategory(sourceModel);
-                    sourceNode.Parent.Nodes.Remove(sourceNode);
-                    selectedNode.Nodes.Add(sourceNode);
-                    selectedNode.ExpandAll();
+                    
+                    string sItem = Convert.ToString(e.Data);
+                    if (aryRequirements != null && aryRequirements.Count > 0)
+                    {
+                        DataManager.Current.Requirement.ChangeCategory(targetModel, aryRequirements);
+                    }
+                }
+                else if (sourceNode != null)
+                {
+                    
+                    ModelCategory sourceModel = sourceNode.Tag as ModelCategory;
+                    string sMessage = string.Format("Really move '{0}[{1}]' to '{2}[{3}]'?"
+                        , sourceModel.DisplayName, sourceModel.Code
+                        , targetModel.DisplayName, targetModel.Code);
+                    if (MessageBox.Show(sMessage, "CONFIRM", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        sourceModel.ParentId = targetModel.Id;
+                        DacFactory.Current.Category.UpdateCategory(sourceModel);
+                        sourceNode.Parent.Nodes.Remove(sourceNode);
+                        selectedNode.Nodes.Add(sourceNode);
+                        selectedNode.ExpandAll();
+                    }
                 }
             }
         }
@@ -218,8 +225,7 @@ namespace RequireManager.UI
                 if ("ROOT".Equals(category.Code) || "ETC".Equals(category.Code))
                     return;
 
-                m_dragNode = node;
-                DoDragDrop(category, DragDropEffects.Move);
+                DoDragDrop(e.Item, DragDropEffects.Move);
             }
         }
 
@@ -243,25 +249,6 @@ namespace RequireManager.UI
                     if (OnChangeSelectCategory != null)
                         OnChangeSelectCategory(category);
                 }
-
-                
-
-                //string sPath = GetPath(node);
-
-                //if ("ROOT".Equals(category.Code))
-                //{
-                //    btnRequirementAdd.Enabled = false;
-                //    UpdateRequirementGrid(null);
-                //}
-                //else
-                //{
-                //    btnRequirementAdd.Enabled = true;
-                //    UpdateRequirementGrid(category);
-                //}
-
-                //lblPath.Text = sPath;
-                //m_frmAddReq.CurrentCategory = category;
-                //m_frmAddReq.Path = sPath;
             }
         }
 

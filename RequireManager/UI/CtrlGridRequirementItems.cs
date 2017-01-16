@@ -12,7 +12,8 @@ using RequireManager.Manager;
 namespace RequireManager.UI
 {
     public partial class CtrlGridRequirementItems : UserControl
-    {           
+    {
+        Point m_posDragStart = Point.Empty;
         frmRequirement m_frmRequirement = new frmRequirement();
         ModelReqmnt m_selectedRequirement = null;
 
@@ -20,6 +21,12 @@ namespace RequireManager.UI
         {
             InitializeComponent();
             m_frmRequirement.OnRequirementUpdated += m_frmRequirement_OnRequirementUpdated;
+            DataManager.Current.Requirement.OnUpdateRequirements += Requirement_OnUpdateRequirements;
+        }
+
+        void Requirement_OnUpdateRequirements()
+        {
+            ReloadRequirements();
         }
 
         void m_frmRequirement_OnRequirementUpdated(object sender, EventArgs e)
@@ -127,6 +134,38 @@ namespace RequireManager.UI
             {
                 menuItemReorder.Enabled = false;
             }
+        }
+
+        private void gridItems_MouseDown(object sender, MouseEventArgs e)
+        {
+            m_posDragStart = e.Location;
+        }
+
+        private void gridItems_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (m_posDragStart.IsEmpty == false)
+            {
+                if (Math.Abs(m_posDragStart.X - e.Location.X) > 10
+                    && Math.Abs(m_posDragStart.Y - e.Location.Y) > 8)
+                {
+
+                    List<ModelReqmnt> arySelectedItems = new List<ModelReqmnt>();
+                    foreach (DataGridViewRow row in gridItems.SelectedRows)
+                    {
+                        DataRowView curRow = row.DataBoundItem as DataRowView;
+                        arySelectedItems.Add(curRow["SRC"] as ModelReqmnt);
+                    }
+                    
+                    this.DoDragDrop(arySelectedItems, DragDropEffects.Move);
+                    m_posDragStart = Point.Empty;
+                }
+                
+            }
+        }
+
+        private void gridItems_MouseUp(object sender, MouseEventArgs e)
+        {
+            m_posDragStart = Point.Empty;
         }
 
         

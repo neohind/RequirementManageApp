@@ -11,7 +11,6 @@ namespace RequireManager.Manager
     {
         public delegate void OnCategorySingleModelHandler(ModelCategory model);
 
-
         public event OnCategorySingleModelHandler OnSelectedCategoryChanged;
         public event OnCategorySingleModelHandler OnCategoryAdded;
         public event OnCategorySingleModelHandler OnCategoryDeleted;

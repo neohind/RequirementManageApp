@@ -9,6 +9,10 @@ namespace RequireManager.Manager
 {
     public class MgrRequirement
     {
+        public delegate void OnUpdateRequirementsHandler();
+        public event OnUpdateRequirementsHandler OnUpdateRequirements;
+
+
         DataManager m_parent = null;
         List<ModelReqmnt> m_aryAllRequirements = null;
 
@@ -159,6 +163,17 @@ namespace RequireManager.Manager
                     nIndex++;
                 }
             }
+        }
+
+        internal void ChangeCategory(ModelCategory targetModel, List<ModelReqmnt> aryRequirements)
+        {
+            foreach (ModelReqmnt req in aryRequirements)
+            {
+                req.CategoryId = targetModel.Id;    
+            }
+            UpdateSelectedRequirements(targetModel);
+            if (OnUpdateRequirements != null)
+                OnUpdateRequirements();
         }
     }
 }
