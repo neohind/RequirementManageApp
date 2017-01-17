@@ -156,5 +156,49 @@ namespace RequireManager.Manager
             if (OnUpdateRequirements != null)
                 OnUpdateRequirements();
         }
+
+        internal void Search(string sSearchWordAll)
+        {
+
+            string[] aryWordToken = sSearchWordAll.Split(" ".ToCharArray());
+
+            SelectedRequirements.Clear();
+            List<ModelReqmnt> aryResult = new List<ModelReqmnt>();
+            aryResult.AddRange(m_aryAllRequirements);
+            
+            foreach (string sSearchWord in aryWordToken)
+            {
+                aryResult = Search(sSearchWord.ToUpper(), aryResult);
+            }
+
+            SelectedRequirements.AddRange(aryResult);
+            if (OnUpdateRequirements != null)
+                OnUpdateRequirements();
+        }
+
+        private List<ModelReqmnt> Search(string sSearchWord, List<ModelReqmnt> source)
+        {
+            List<ModelReqmnt> aryResult = source.FindAll(m => m.CategoryPath.Contains(sSearchWord));
+
+            foreach (ModelReqmnt req in source)
+            {
+                if (req.Requirement.ToUpper().Contains(sSearchWord))
+                {
+                    if (aryResult.Contains(req) == false)
+                        aryResult.Add(req);
+                }
+                else
+                {
+                    foreach (ModelRemark remark in req.AllRemark)
+                        if (remark.Contents.ToUpper().Contains(sSearchWord))
+                        {
+                            if (aryResult.Contains(req) == false)
+                                aryResult.Add(req);
+                        }
+                }
+            }
+
+            return aryResult;
+        }
     }
 }

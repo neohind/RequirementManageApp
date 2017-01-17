@@ -69,7 +69,6 @@ namespace RequireManager.UI
                 ? "ROOT"
                 : DataManager.Current.Category.SelectedCategory.Path;
 
-
             List<ModelReqmnt> requirements = DataManager.Current.Requirement.SelectedRequirements;
             tbRequirement.Rows.Clear();
             foreach (ModelReqmnt req in requirements)
@@ -169,6 +168,16 @@ namespace RequireManager.UI
         private void gridItems_MouseUp(object sender, MouseEventArgs e)
         {
             m_posDragStart = Point.Empty;
+        }
+
+        private void gridItems_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (DataManager.Current.Requirement.SelectedRequirements.Contains(m_selectedRequirement))
+            {
+                m_frmRequirement.CurRequirement = m_selectedRequirement;
+                m_frmRequirement.Show();
+                m_frmRequirement.BringToFront();
+            }
         }
 
         

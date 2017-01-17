@@ -84,5 +84,14 @@ namespace RequireManager.Manager
         {
             Category.Edit(modelCategory);
         }
+
+        internal void Search(string sSearchWord)
+        {
+            Category.SetCategory(Category.Root);
+
+           
+
+            Requirement.Search(sSearchWord);
+        }
     }
 }

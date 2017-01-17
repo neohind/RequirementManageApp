@@ -36,6 +36,20 @@ namespace RequireManager
         {
             base.OnClosing(e);
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtSearchWord.Text) == false)
+            {
+                DataManager.Current.Search(txtSearchWord.Text);
+            }
+        }
+
+        private void txtSearchWord_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                btnSearch_Click(this, e);
+        }
     }
 }
 

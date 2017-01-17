@@ -30,6 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gridItems = new System.Windows.Forms.DataGridView();
+            this.pATHDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CATNM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDXDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rEQNMTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pRJIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cATIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sRCIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eNABLEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cREATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uPDATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuItemReqAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemReqEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,26 +59,17 @@
             this.colCREATED = new System.Data.DataColumn();
             this.colUPDATED = new System.Data.DataColumn();
             this.colPATH = new System.Data.DataColumn();
+            this.dataColumn1 = new System.Data.DataColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblPath = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataColumn1 = new System.Data.DataColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSRC = new System.Data.DataColumn();
-            this.pATHDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CATNM = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDXDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rEQNMTDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pRJIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cATIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sRCIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eNABLEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cREATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uPDATEDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblName = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sRCDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSRC = new System.Data.DataColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_dsRequirements)).BeginInit();
@@ -110,10 +112,99 @@
             this.gridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridItems.Size = new System.Drawing.Size(821, 452);
             this.gridItems.TabIndex = 1;
+            this.gridItems.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridItems_CellMouseDoubleClick);
             this.gridItems.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridItems_CellMouseDown);
             this.gridItems.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridItems_MouseDown);
             this.gridItems.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gridItems_MouseMove);
             this.gridItems.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gridItems_MouseUp);
+            // 
+            // pATHDataGridViewTextBoxColumn
+            // 
+            this.pATHDataGridViewTextBoxColumn.DataPropertyName = "PATH";
+            this.pATHDataGridViewTextBoxColumn.HeaderText = "Path";
+            this.pATHDataGridViewTextBoxColumn.Name = "pATHDataGridViewTextBoxColumn";
+            this.pATHDataGridViewTextBoxColumn.ReadOnly = true;
+            this.pATHDataGridViewTextBoxColumn.Width = 220;
+            // 
+            // CATNM
+            // 
+            this.CATNM.DataPropertyName = "CATNM";
+            this.CATNM.HeaderText = "Name";
+            this.CATNM.Name = "CATNM";
+            this.CATNM.ReadOnly = true;
+            this.CATNM.Width = 150;
+            // 
+            // iDXDataGridViewTextBoxColumn
+            // 
+            this.iDXDataGridViewTextBoxColumn.DataPropertyName = "IDX";
+            this.iDXDataGridViewTextBoxColumn.HeaderText = "Index";
+            this.iDXDataGridViewTextBoxColumn.Name = "iDXDataGridViewTextBoxColumn";
+            this.iDXDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDXDataGridViewTextBoxColumn.Width = 45;
+            // 
+            // rEQNMTDataGridViewTextBoxColumn
+            // 
+            this.rEQNMTDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.rEQNMTDataGridViewTextBoxColumn.DataPropertyName = "REQNMT";
+            this.rEQNMTDataGridViewTextBoxColumn.HeaderText = "Requirement";
+            this.rEQNMTDataGridViewTextBoxColumn.Name = "rEQNMTDataGridViewTextBoxColumn";
+            this.rEQNMTDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // pRJIDDataGridViewTextBoxColumn
+            // 
+            this.pRJIDDataGridViewTextBoxColumn.DataPropertyName = "PRJID";
+            this.pRJIDDataGridViewTextBoxColumn.HeaderText = "PRJID";
+            this.pRJIDDataGridViewTextBoxColumn.Name = "pRJIDDataGridViewTextBoxColumn";
+            this.pRJIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.pRJIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // cATIDDataGridViewTextBoxColumn
+            // 
+            this.cATIDDataGridViewTextBoxColumn.DataPropertyName = "CATID";
+            this.cATIDDataGridViewTextBoxColumn.HeaderText = "CATID";
+            this.cATIDDataGridViewTextBoxColumn.Name = "cATIDDataGridViewTextBoxColumn";
+            this.cATIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cATIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // sRCIDDataGridViewTextBoxColumn
+            // 
+            this.sRCIDDataGridViewTextBoxColumn.DataPropertyName = "SRCID";
+            this.sRCIDDataGridViewTextBoxColumn.HeaderText = "SRCID";
+            this.sRCIDDataGridViewTextBoxColumn.Name = "sRCIDDataGridViewTextBoxColumn";
+            this.sRCIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sRCIDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // eNABLEDDataGridViewTextBoxColumn
+            // 
+            this.eNABLEDDataGridViewTextBoxColumn.DataPropertyName = "ENABLED";
+            this.eNABLEDDataGridViewTextBoxColumn.HeaderText = "ENABLED";
+            this.eNABLEDDataGridViewTextBoxColumn.Name = "eNABLEDDataGridViewTextBoxColumn";
+            this.eNABLEDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.eNABLEDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // cREATEDDataGridViewTextBoxColumn
+            // 
+            this.cREATEDDataGridViewTextBoxColumn.DataPropertyName = "CREATED";
+            this.cREATEDDataGridViewTextBoxColumn.HeaderText = "CREATED";
+            this.cREATEDDataGridViewTextBoxColumn.Name = "cREATEDDataGridViewTextBoxColumn";
+            this.cREATEDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cREATEDDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // uPDATEDDataGridViewTextBoxColumn
+            // 
+            this.uPDATEDDataGridViewTextBoxColumn.DataPropertyName = "UPDATED";
+            this.uPDATEDDataGridViewTextBoxColumn.HeaderText = "UPDATED";
+            this.uPDATEDDataGridViewTextBoxColumn.Name = "uPDATEDDataGridViewTextBoxColumn";
+            this.uPDATEDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.uPDATEDDataGridViewTextBoxColumn.Visible = false;
             // 
             // contextMenuStrip1
             // 
@@ -224,6 +315,10 @@
             this.colPATH.Caption = "PATH";
             this.colPATH.ColumnName = "PATH";
             // 
+            // dataColumn1
+            // 
+            this.dataColumn1.ColumnName = "CATNM";
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "SRC";
@@ -242,6 +337,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.lblName);
             this.splitContainer1.Panel1.Controls.Add(this.lblPath);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             // 
@@ -278,10 +374,6 @@
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.Visible = false;
             // 
-            // dataColumn1
-            // 
-            this.dataColumn1.ColumnName = "CATNM";
-            // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "SRC";
@@ -290,98 +382,21 @@
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             this.dataGridViewTextBoxColumn3.Visible = false;
             // 
-            // colSRC
+            // lblName
             // 
-            this.colSRC.ColumnName = "SRC";
-            this.colSRC.DataType = typeof(object);
+            this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(410, 11);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(0, 20);
+            this.lblName.TabIndex = 2;
             // 
-            // pATHDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn4
             // 
-            this.pATHDataGridViewTextBoxColumn.DataPropertyName = "PATH";
-            this.pATHDataGridViewTextBoxColumn.HeaderText = "Path";
-            this.pATHDataGridViewTextBoxColumn.Name = "pATHDataGridViewTextBoxColumn";
-            this.pATHDataGridViewTextBoxColumn.ReadOnly = true;
-            this.pATHDataGridViewTextBoxColumn.Width = 220;
-            // 
-            // CATNM
-            // 
-            this.CATNM.DataPropertyName = "CATNM";
-            this.CATNM.HeaderText = "Name";
-            this.CATNM.Name = "CATNM";
-            this.CATNM.ReadOnly = true;
-            this.CATNM.Width = 150;
-            // 
-            // iDXDataGridViewTextBoxColumn
-            // 
-            this.iDXDataGridViewTextBoxColumn.DataPropertyName = "IDX";
-            this.iDXDataGridViewTextBoxColumn.HeaderText = "Index";
-            this.iDXDataGridViewTextBoxColumn.Name = "iDXDataGridViewTextBoxColumn";
-            this.iDXDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDXDataGridViewTextBoxColumn.Width = 45;
-            // 
-            // rEQNMTDataGridViewTextBoxColumn
-            // 
-            this.rEQNMTDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.rEQNMTDataGridViewTextBoxColumn.DataPropertyName = "REQNMT";
-            this.rEQNMTDataGridViewTextBoxColumn.HeaderText = "Requirement";
-            this.rEQNMTDataGridViewTextBoxColumn.Name = "rEQNMTDataGridViewTextBoxColumn";
-            this.rEQNMTDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // pRJIDDataGridViewTextBoxColumn
-            // 
-            this.pRJIDDataGridViewTextBoxColumn.DataPropertyName = "PRJID";
-            this.pRJIDDataGridViewTextBoxColumn.HeaderText = "PRJID";
-            this.pRJIDDataGridViewTextBoxColumn.Name = "pRJIDDataGridViewTextBoxColumn";
-            this.pRJIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.pRJIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // cATIDDataGridViewTextBoxColumn
-            // 
-            this.cATIDDataGridViewTextBoxColumn.DataPropertyName = "CATID";
-            this.cATIDDataGridViewTextBoxColumn.HeaderText = "CATID";
-            this.cATIDDataGridViewTextBoxColumn.Name = "cATIDDataGridViewTextBoxColumn";
-            this.cATIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cATIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // sRCIDDataGridViewTextBoxColumn
-            // 
-            this.sRCIDDataGridViewTextBoxColumn.DataPropertyName = "SRCID";
-            this.sRCIDDataGridViewTextBoxColumn.HeaderText = "SRCID";
-            this.sRCIDDataGridViewTextBoxColumn.Name = "sRCIDDataGridViewTextBoxColumn";
-            this.sRCIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.sRCIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // eNABLEDDataGridViewTextBoxColumn
-            // 
-            this.eNABLEDDataGridViewTextBoxColumn.DataPropertyName = "ENABLED";
-            this.eNABLEDDataGridViewTextBoxColumn.HeaderText = "ENABLED";
-            this.eNABLEDDataGridViewTextBoxColumn.Name = "eNABLEDDataGridViewTextBoxColumn";
-            this.eNABLEDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.eNABLEDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // cREATEDDataGridViewTextBoxColumn
-            // 
-            this.cREATEDDataGridViewTextBoxColumn.DataPropertyName = "CREATED";
-            this.cREATEDDataGridViewTextBoxColumn.HeaderText = "CREATED";
-            this.cREATEDDataGridViewTextBoxColumn.Name = "cREATEDDataGridViewTextBoxColumn";
-            this.cREATEDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cREATEDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // uPDATEDDataGridViewTextBoxColumn
-            // 
-            this.uPDATEDDataGridViewTextBoxColumn.DataPropertyName = "UPDATED";
-            this.uPDATEDDataGridViewTextBoxColumn.HeaderText = "UPDATED";
-            this.uPDATEDDataGridViewTextBoxColumn.Name = "uPDATEDDataGridViewTextBoxColumn";
-            this.uPDATEDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.uPDATEDDataGridViewTextBoxColumn.Visible = false;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "SRC";
+            this.dataGridViewTextBoxColumn4.HeaderText = "SRC";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Visible = false;
             // 
             // sRCDataGridViewTextBoxColumn
             // 
@@ -390,6 +405,11 @@
             this.sRCDataGridViewTextBoxColumn.Name = "sRCDataGridViewTextBoxColumn";
             this.sRCDataGridViewTextBoxColumn.ReadOnly = true;
             this.sRCDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // colSRC
+            // 
+            this.colSRC.ColumnName = "SRC";
+            this.colSRC.DataType = typeof(object);
             // 
             // CtrlGridRequirementItems
             // 
@@ -451,5 +471,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cREATEDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn uPDATEDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn sRCDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }

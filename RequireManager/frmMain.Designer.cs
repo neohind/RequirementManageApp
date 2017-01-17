@@ -30,12 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.txtSearchWord = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.ctrlCategoryNavigator1 = new RequireManager.UI.CtrlCategoryNavigator();
             this.ctrlGridRequirementItems1 = new RequireManager.UI.CtrlGridRequirementItems();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +64,45 @@
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer3.IsSplitterFixed = true;
+            this.splitContainer3.Location = new System.Drawing.Point(5, 5);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.btnSearch);
+            this.splitContainer3.Panel1.Controls.Add(this.txtSearchWord);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.splitContainer1);
+            this.splitContainer3.Size = new System.Drawing.Size(1274, 651);
+            this.splitContainer3.SplitterDistance = 45;
+            this.splitContainer3.TabIndex = 2;
+            // 
+            // txtSearchWord
+            // 
+            this.txtSearchWord.Location = new System.Drawing.Point(6, 14);
+            this.txtSearchWord.Name = "txtSearchWord";
+            this.txtSearchWord.Size = new System.Drawing.Size(263, 23);
+            this.txtSearchWord.TabIndex = 0;
+            this.txtSearchWord.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearchWord_KeyDown);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(274, 13);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 1;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // ctrlCategoryNavigator1
             // 
             this.ctrlCategoryNavigator1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -76,22 +118,6 @@
             this.ctrlGridRequirementItems1.Name = "ctrlGridRequirementItems1";
             this.ctrlGridRequirementItems1.Size = new System.Drawing.Size(1000, 602);
             this.ctrlGridRequirementItems1.TabIndex = 0;
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer3.IsSplitterFixed = true;
-            this.splitContainer3.Location = new System.Drawing.Point(5, 5);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainer3.Size = new System.Drawing.Size(1274, 651);
-            this.splitContainer3.SplitterDistance = 45;
-            this.splitContainer3.TabIndex = 2;
             // 
             // frmMain
             // 
@@ -109,6 +135,8 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
             this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -121,6 +149,8 @@
         private UI.CtrlCategoryNavigator ctrlCategoryNavigator1;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private UI.CtrlGridRequirementItems ctrlGridRequirementItems1;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.TextBox txtSearchWord;
     }
 }
 
