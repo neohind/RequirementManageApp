@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\FauxS-X %28Aqua%29 ActiveX Cache.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net35-full\log4net.dll</HintPath>
@@ -142,6 +145,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="UI\CtrlCategoryNavigator.resx">
       <DependentUpon>CtrlCategoryNavigator.cs</DependentUpon>
@@ -163,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Queries\Query.txt" />
+    <None Include="Resources\FauxS-X %28Aqua%29 ActiveX Cache.ico" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

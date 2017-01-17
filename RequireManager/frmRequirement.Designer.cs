@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRequirement));
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnOKandNew = new System.Windows.Forms.Button();
@@ -308,6 +309,7 @@
             this.ClientSize = new System.Drawing.Size(658, 419);
             this.Controls.Add(this.splitContainer2);
             this.Font = new System.Drawing.Font("Malgun Gothic", 9F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmRequirement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Requirement Detail Editor";

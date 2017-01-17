@@ -128,15 +128,20 @@ namespace RequireManager.Manager
 
         internal void ReorderIndex()
         {
-            if(SelectedRequirements.Count> 0)
+            if (m_parent.Category.SelectedCategory != null && SelectedRequirements.Count > 0)
             {
-                SelectedRequirements.Sort((m, n) => m.Index - n.Index);
-                int nIndex = 1;
-                foreach(ModelReqmnt req in SelectedRequirements)
+                List<ModelReqmnt> aryRequirement = SelectedRequirements.FindAll(m => m.CategoryId == m_parent.Category.SelectedCategory.Id);
+
+                if (aryRequirement.Count > 0)
                 {
-                    req.Index = nIndex;
-                    DacFactory.Current.Requiremnt.UpdateRequirement(req);
-                    nIndex++;
+                    aryRequirement.Sort((m, n) => m.Index - n.Index);
+                    int nIndex = 1;
+                    foreach (ModelReqmnt req in aryRequirement)
+                    {
+                        req.Index = nIndex;
+                        DacFactory.Current.Requiremnt.UpdateRequirement(req);
+                        nIndex++;
+                    }
                 }
             }
         }
