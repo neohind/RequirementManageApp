@@ -55,25 +55,42 @@ namespace RequireManager
             if (string.IsNullOrEmpty(txtConnectionString.Text) == false)
             {
                 DacFactory.Current.Init(txtConnectionString.Text);
-                List<ModelProject> aryProject = DacFactory.Current.Project.GetAllProject();
+                
+                txtConnectionString.Enabled = false;
+                
+                btnCreateProject.Enabled = true;
+                
 
-                if (aryProject.Count > 0)
+                RefreshProject();
+            }
+        }
+
+        private void btnCreateProject_Click(object sender, EventArgs e)
+        {
+            frmCreateProject frm = new frmCreateProject();
+            frm.ShowDialog();
+            RefreshProject();
+        }
+
+        private void RefreshProject()
+        {
+            List<ModelProject> aryProject = DacFactory.Current.Project.GetAllProject();
+            if (aryProject.Count > 0)
+            {
+                cmbProjects.DataSource = aryProject;
+                cmbProjects.DisplayMember = "ProjectName";
+                ModelProject prevProject = aryProject.Find(m => m.ID == m_nSelectedProjectID);
+                if (prevProject != null)
                 {
-                    cmbProjects.DataSource = aryProject;
-                    cmbProjects.DisplayMember = "ProjectName";
-                    txtConnectionString.Enabled = false;
-                    btnConnect.Enabled = false;
-                    btnOpen.Enabled = true;
-                    btnCancel.Enabled = true;
-                    cmbProjects.Enabled = true;
-
-                    ModelProject prevProject = aryProject.Find(m => m.ID == m_nSelectedProjectID);
-                    if(prevProject != null)
-                    {
-                        int nIndex = aryProject.IndexOf(prevProject);
-                        cmbProjects.SelectedIndex = nIndex;
-                    }
+                    int nIndex = aryProject.IndexOf(prevProject);
+                    cmbProjects.SelectedIndex = nIndex;
+                   
                 }
+
+                btnConnect.Enabled = false;
+                btnOpen.Enabled = true;
+                btnCancel.Enabled = true;
+                cmbProjects.Enabled = true;
             }
         }
     }

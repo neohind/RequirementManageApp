@@ -109,6 +109,7 @@ namespace RequireManager.UI
                         {
                             if (DataManager.Current.Requirement.SelectedRequirements.Contains(m_selectedRequirement))
                             {
+
                                 string sMessage = string.Format("Really remove requirement? \r\n {0}", m_selectedRequirement.Requirement);
                                 if (MessageBox.Show(sMessage, "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                 {
@@ -122,6 +123,14 @@ namespace RequireManager.UI
                         {
                             DataManager.Current.Requirement.ReorderIndex();
                             ReloadRequirements();
+                        }
+                        break;
+                    case  "menuItemCopyCatPath":
+                        {
+                            if (DataManager.Current.Requirement.SelectedRequirements.Contains(m_selectedRequirement))
+                            {
+                                Clipboard.SetText(m_selectedRequirement.CategoryPath);
+                            }
                         }
                         break;
                 }

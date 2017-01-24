@@ -36,12 +36,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbProjects = new System.Windows.Forms.ComboBox();
+            this.btnCreateProject = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOpen
             // 
             this.btnOpen.Enabled = false;
-            this.btnOpen.Location = new System.Drawing.Point(90, 126);
+            this.btnOpen.Location = new System.Drawing.Point(217, 126);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(86, 29);
             this.btnOpen.TabIndex = 2;
@@ -52,7 +53,7 @@
             // btnCancel
             // 
             this.btnCancel.Enabled = false;
-            this.btnCancel.Location = new System.Drawing.Point(228, 126);
+            this.btnCancel.Location = new System.Drawing.Point(334, 126);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 29);
             this.btnCancel.TabIndex = 2;
@@ -105,10 +106,22 @@
             this.cmbProjects.Size = new System.Drawing.Size(352, 23);
             this.cmbProjects.TabIndex = 7;
             // 
+            // btnCreateProject
+            // 
+            this.btnCreateProject.Enabled = false;
+            this.btnCreateProject.Location = new System.Drawing.Point(15, 126);
+            this.btnCreateProject.Name = "btnCreateProject";
+            this.btnCreateProject.Size = new System.Drawing.Size(75, 29);
+            this.btnCreateProject.TabIndex = 8;
+            this.btnCreateProject.Text = "Create";
+            this.btnCreateProject.UseVisualStyleBackColor = true;
+            this.btnCreateProject.Click += new System.EventHandler(this.btnCreateProject_Click);
+            // 
             // frmLogin
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(432, 176);
+            this.ClientSize = new System.Drawing.Size(432, 177);
+            this.Controls.Add(this.btnCreateProject);
             this.Controls.Add(this.cmbProjects);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -136,5 +149,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbProjects;
+        private System.Windows.Forms.Button btnCreateProject;
     }
 }

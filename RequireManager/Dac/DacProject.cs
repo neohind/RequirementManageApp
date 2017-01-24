@@ -9,6 +9,8 @@ namespace RequireManager.Dac
 {
     public class DacProject : DacBase
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public DacProject(string sConnectionString) : base(sConnectionString)
         {   
         }
@@ -42,5 +44,22 @@ namespace RequireManager.Dac
         }
 
 
+
+        public void AddProject(string sProjectName, string sProjectDescription)
+        {
+            UDataQuerySet set = new UDataQuerySet("SP_PROJECT_CREATE", CommandType.StoredProcedure);
+
+            set.AddParam("@PRJNM", sProjectName);
+            set.AddParam("@PRJDESC", sProjectDescription);
+
+            try
+            {
+                m_agent.ExecuteQuery(set);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
     }
 }

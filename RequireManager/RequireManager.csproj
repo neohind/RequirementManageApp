@@ -67,6 +67,12 @@
     <Compile Include="Dac\DacSetting.cs" />
     <Compile Include="Dac\DbAgent.cs" />
     <Compile Include="Dac\UDatalQuerySet.cs" />
+    <Compile Include="frmCreateProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateProject.Designer.cs">
+      <DependentUpon>frmCreateProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Manager\MgrCategory.cs" />
     <Compile Include="Manager\DataManager.cs" />
     <Compile Include="frmCategory.cs">
@@ -124,6 +130,9 @@
     </Compile>
     <EmbeddedResource Include="frmCategory.resx">
       <DependentUpon>frmCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateProject.resx">
+      <DependentUpon>frmCreateProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
